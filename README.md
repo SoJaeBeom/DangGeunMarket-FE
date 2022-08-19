@@ -42,7 +42,7 @@ This is not for real commercial project, Its only for pratice.
 
     
 ## ****💡 ERD****
-![Untitled 1.png](https://user-images.githubusercontent.com/98306332/185595665-4c28bde6-814d-4254-80b7-844f39dbd7ca.png)
+![Untitled 1.png](https://user-images.githubusercontent.com/98306332/185635708-e177b7db-9ac8-45df-bd63-e5808c89f370.png)
 
 
 
