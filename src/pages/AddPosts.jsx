@@ -1,3 +1,3 @@
 export default function AddPosts() {
-  console.log("AddPosts !!");
+  console.log('AddPosts !!');
 }
