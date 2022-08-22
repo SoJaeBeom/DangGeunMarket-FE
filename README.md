@@ -1,7 +1,7 @@
 # 🥕당근마켓 클론코딩 (Carrot Market in the Clones)
 
 ![rm.png](https://user-images.githubusercontent.com/98306332/185592131-a216f5ea-dbd2-4c5a-bd65-8fe6351ea497.png)
-This is not for real commercial project, Its only for pratice.
+
 
 
 ## ****🔍 프로젝트 목적****
