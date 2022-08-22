@@ -14,6 +14,7 @@ export default createGlobalStyle`
     font-weight: 300; 		
     font-style: normal;
   }
+  
 
   @font-face {
     font-family: 'Bazzi';
@@ -39,6 +40,12 @@ export default createGlobalStyle`
     font-family: 'a19';
     src: local('a19'),
     url(${a19}) format('woff');
+  }
+
+  @font-face {
+    font-family: 'a11';
+    src: local('a11'),
+    url(${a11}) format('woff');
   }
 
   @font-face {

@@ -1,4 +1,3 @@
-import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
