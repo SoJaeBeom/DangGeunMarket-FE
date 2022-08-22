@@ -1,3 +1,3 @@
 export default function Detail() {
-  console.log("Detail !!");
+  console.log('Detail !!');
 }
