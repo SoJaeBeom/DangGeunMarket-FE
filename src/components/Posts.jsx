@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import imgPath from "../img/항해99.jpeg";
-import heartPath from "../img/heart_blank.png";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import imgPath from '../image/항해99.jpeg';
+import heartPath from '../image/heart_blank.png';
 
 export default function Posts({ product }) {
   return (

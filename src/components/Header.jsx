@@ -68,7 +68,7 @@ const LoginButton = styled.button`
   cursor: pointer;
 
   font-family: 'a15';
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
 
   &:hover {
@@ -85,7 +85,7 @@ const Signup = styled.button`
   cursor: pointer;
 
   font-family: 'a15';
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   &:hover {
     background: #f2f2f2;
@@ -101,7 +101,7 @@ const Chatting = styled.button`
   cursor: pointer;
 
   font-family: 'a15';
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   &:hover {
     background: #f2f2f2;
