@@ -12,6 +12,8 @@ export default function SignUp() {
   const [password, setPassWord] = useState("");
   const [confirmpwd, setConFirmPwd] = useState("");
 
+  
+  
   // 오류메시지 상태
   const [userIdError, setUserIdError] = useState(false);
   const [nicknameError, setNickNameError] = useState(false);
@@ -19,12 +21,12 @@ export default function SignUp() {
   const [passwordError, setPassWordError] = useState(false);
   const [confirmpwdError, setConFirmPwdError] = useState(false);
 
-  
+  // /^(?=.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣])(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{2,8}$/;
   const navigate = useNavigate();
   
   // 아이디
   const onChangeUserId = (event) => {
-    const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
+    const userIdRegex = /^[A-Za-z0-9+]{4,12}$/;
     if (!event.target.value || userIdRegex.test(event.target.value)) {
       setUserIdError(false);
     } else {
@@ -36,7 +38,8 @@ export default function SignUp() {
   
   // 닉네임
   const onChangeNickName = (event) => {
-    if (!event.target.value) {
+    const nicknameRegex = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣][~!@#$%^&*()_+|<>?:{}][a-zA-Z][0-9]{2,8}$/;
+    if (!event.target.value || nicknameRegex.test(event.target.value)) {
       setNickNameError(false);
     } else{
       setNickNameError(true);
@@ -56,7 +59,7 @@ export default function SignUp() {
   
   // 비밀번호
   const onChangePassWord = (event) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;   
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,12}$/;   
     if (!event.target.value || passwordRegex.test(event.target.value)) {
       setPassWordError(false);
       
@@ -100,25 +103,17 @@ export default function SignUp() {
     
   };
 
-  
-  
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        const data = await axios.post("http://54.180.2.97/user/signup", {
-          
+          const data = await axios.post("http://54.180.2.97/user/signup", {
           username: userId,
           nickname,
           location,
           password,
-          
         });
-        console.log(data);
-      } catch (error) {
-        throw new Error(error);
-      }
-      
-      alert("회원 가입 완료하였습니다!!");
+        
+      alert(data);
       setUserId("");
       setPassWord("");
       setConFirmPwd("");
@@ -126,12 +121,17 @@ export default function SignUp() {
       setLoCation("");
       navigate("/signin");
       return;
+        
+      } catch (error) {
+        throw new Error(error);
+      }
       
     } else {
       alert("입력 정보를 다시 확인하세요!!");
     }
     
   };
+  
 
   // const [isError, setIsError] = useState(true);
   // const [isOnCheck, setIsOnCheck] = useState(false); //중복체크를 on 할 것인지 안할것인지 판별 여부
@@ -171,7 +171,7 @@ export default function SignUp() {
         value={userId}
         onChange={onChangeUserId}
         />
-        <ErrorMessage>사용자 ID는 5자 이상이어야 하며 문자 또는 숫자를 포함해주세요.</ErrorMessage>
+        <ErrorMessage>사용자 ID는 4자 이상, 12자 이하 영문 또는 숫자를 포함해주세요.</ErrorMessage>
         </>
       ) : (
         <StInput
@@ -199,12 +199,25 @@ export default function SignUp() {
         </StIdBox>
       </StIdForm>
       <StInputForm>
+      {nicknameError ? (
+      <>
+      <StInput 
+        id="nickname" 
+        placeholder="닉네임을 입력해주세요" 
+        type="text" 
+        value={nickname}
+        onChange={onChangeNickName}
+        />
+        <ErrorMessage>닉네임은 2자 이상, 8자 이하 한글,영문,숫자,특수문자를 포함해주세요.</ErrorMessage>
+        </>
+      ) : (
       <StInput  
       id="nickname" 
       placeholder="닉네임을 입력해주세요" 
       value={nickname}
       onChange={onChangeNickName}
       /> 
+      )}
       </StInputForm>
       <StIdBtn type="button">
         중복확인
@@ -249,7 +262,7 @@ export default function SignUp() {
       value={password}
       onChange={onChangePassWord}
       /> 
-      <ErrorMessage>비밀번호는 8자 이상이어야 하며 문자와 숫자 1자 이상을 포함해주세요.</ErrorMessage>
+      <ErrorMessage>비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를 포함해주세요.</ErrorMessage>
       </>
       ) : (
       <StInput 
