@@ -1,9 +1,8 @@
-import md5 from 'md5';
-import styled from 'styled-components';
-import { __deleteDetailProduct } from '../redux/modules/detailProductSlice';
-import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import { getCookieToken } from '../storage/Cookie';
+import md5 from "md5";
+import styled from "styled-components";
+import { __deleteDetailProduct } from "../redux/modules/detailProductSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function DetailContent({ detailProduct }) {
   const avatarUrl = `https://www.gravatar.com/avatar/${md5(
@@ -13,20 +12,19 @@ export default function DetailContent({ detailProduct }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = detailProduct.id;
-  const cookie = getCookieToken();
 
   const displayedAt = (paramTime) => {
     const parseTime = Date.parse(paramTime);
     const date = new Date(parseTime);
     const returnDate =
       date.getFullYear() +
-      '/' +
+      "/" +
       (date.getMonth() + 1) +
-      '/' +
+      "/" +
       date.getDate() +
-      ' ' +
+      " " +
       date.getHours() +
-      ':' +
+      ":" +
       date.getMinutes();
     return returnDate;
   };
@@ -71,9 +69,9 @@ export default function DetailContent({ detailProduct }) {
         </Link>
         <DetailContentButton
           onClick={() => {
-            if (window.confirm('정말 삭제하시나요?')) {
+            if (window.confirm("정말 삭제하시나요?")) {
               deleteProduct();
-              navigate('/posts');
+              navigate("/posts");
             }
           }}
         >
@@ -200,7 +198,7 @@ const DetailContentCatting = styled.button`
   border: none;
   border-radius: 7px;
 
-  font-family: 'a15';
+  font-family: "a15";
   color: white;
   cursor: pointer;
 `;
@@ -214,7 +212,7 @@ const DetailContentButton = styled.button`
   background: #ff8a3b;
   border-radius: 7px;
 
-  font-family: 'a15';
+  font-family: "a15";
   color: white;
   cursor: pointer;
 `;

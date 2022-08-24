@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import Header from './Header';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import styled from "styled-components";
+import Header from "./Header";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function DetailImage({ detailProduct }) {
   const settings = {

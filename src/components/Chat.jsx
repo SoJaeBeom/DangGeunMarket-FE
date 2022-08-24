@@ -1,11 +1,10 @@
 import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import SockJS from "sockjs-client";
 
 export default function Chat() {
-  let roomId = "";
   const [message, setMessage] = useState("");
   const { detailProduct } = useSelector((state) => state.detailProduct);
   const [returnMessage, setReturnMessage] = useState("");
@@ -64,18 +63,18 @@ export default function Chat() {
   };
 
   // 웹소켓 연결 해제, 구독 해제
-  const stompDisConnect = () => {
-    console.log("stompDisConnect");
-    try {
-      // stompClient.debug = null;
-      stompClient.disconnect(() => {
-        stompClient.unsubscribe("sub-0");
-      }, config);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
+  // const stompDisConnect = () => {
+  //   console.log("stompDisConnect");
+  //   try {
+  //     // stompClient.debug = null;
+  //     stompClient.disconnect(() => {
+  //       stompClient.unsubscribe("sub-0");
+  //     }, config);
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw error;
+  //   }
+  // };
 
   stompConnect();
 

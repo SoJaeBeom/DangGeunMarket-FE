@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DetailContent from "../components/DetailContent";
 import DetailImage from "../components/DetailImage";
@@ -10,9 +10,8 @@ import { __getDetailProduct } from "../redux/modules/detailProductSlice";
 export default function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const { detailProduct, isLoading, isFinish } = useSelector(
+  const { detailProduct, isFinish } = useSelector(
     (state) => state.detailProduct
   );
 

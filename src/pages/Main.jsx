@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import homeicon1 from '../image/homeicon1.png';
-import homeicon2 from '../image/homeicon2.png';
-import homeicon3 from '../image/homeicon3.png';
-import mainimage1 from '../image/mainimage1.png';
+import styled from "styled-components";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import homeicon1 from "../image/homeicon1.png";
+import homeicon2 from "../image/homeicon2.png";
+import homeicon3 from "../image/homeicon3.png";
 
 export default function Main() {
-
-  
-
-  
   return (
     <MainContainer>
       <Header />
@@ -32,7 +26,7 @@ export default function Main() {
           </div>
           <img
             alt=""
-            style={{ height: '700px' }}
+            style={{ height: "700px" }}
             src="https://d1unjqcospf8gs.cloudfront.net/assets/home/main/3x/image-top-68ba12f0da7b5af9a574ed92ca8b3a9c0068db176b566dd374ee50359693358b.png"
           />
         </Wrap1>
@@ -41,7 +35,7 @@ export default function Main() {
         <Wrap2>
           <img
             alt=""
-            style={{ height: '700px' }}
+            style={{ height: "700px" }}
             src="https://d1unjqcospf8gs.cloudfront.net/assets/home/main/3x/image-1-39ac203e8922f615aa3843337871cb654b81269e872494128bf08236157c5f6a.png"
           />
           <div>
@@ -75,24 +69,24 @@ export default function Main() {
               <br />
               우리 동네의 다양한 이야기를 이웃과 함께 나누어요.
             </Desc3>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: "flex" }}>
               <Li>
                 <br />
-                <img style={{ width: '60px' }} src={homeicon1} alt="" />
+                <img style={{ width: "60px" }} src={homeicon1} alt="" />
                 <DescTitle>우리동네질문</DescTitle>
                 <br />
                 <Desc>궁금한 게 있을 땐 이웃에게 물어보세요.</Desc>
               </Li>
               <Li>
                 <br />
-                <img style={{ width: '60px' }} src={homeicon2} alt="" />
+                <img style={{ width: "60px" }} src={homeicon2} alt="" />
                 <DescTitle>동네분실센터</DescTitle>
                 <br />
                 <Desc>무언가를 잃어버렸을 때, 함께 찾을 수 있어요.</Desc>
               </Li>
               <Li>
                 <br />
-                <img style={{ width: '60px' }} src={homeicon3} alt="" />
+                <img style={{ width: "60px" }} src={homeicon3} alt="" />
                 <DescTitle>동네모임</DescTitle>
                 <br />
                 <Desc> 관심사가 비슷한 이웃과 온오프라인으로 만나요.</Desc>
@@ -101,7 +95,7 @@ export default function Main() {
           </div>
           <img
             alt=""
-            style={{ height: '700px' }}
+            style={{ height: "700px" }}
             src="https://d1unjqcospf8gs.cloudfront.net/assets/home/main/3x/image-2-f286322ab98acedf914a05bf77e84c67dcb897c8ccb543e66f6afea9d366d06d.png"
           />
         </Wrap3>
@@ -110,7 +104,7 @@ export default function Main() {
         <Wrap2>
           <img
             alt=""
-            style={{ height: '700px' }}
+            style={{ height: "700px" }}
             src="https://d1unjqcospf8gs.cloudfront.net/assets/home/main/3x/image-3-5fd6fb61d603ab919a45566b2ea6b505c83a93ec218f34ddcd5cb482543e2317.webp"
           />
           <div>
@@ -251,7 +245,6 @@ export default function Main() {
       </section> */}
       <Footer />
     </MainContainer>
-
   );
 }
 
@@ -276,13 +269,13 @@ const Wrap1 = styled.div`
 `;
 
 const Title1 = styled.div`
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 48px;
 `;
 
 const Desc1 = styled.div`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 15px;
 `;
 
@@ -302,13 +295,13 @@ const Wrap2 = styled.div`
 `;
 
 const Title2 = styled.div`
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 48px;
 `;
 
 const Desc2 = styled.div`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 16px;
 `;
 
@@ -320,7 +313,7 @@ const Button1 = styled.button`
   border-radius: 7px;
   background: #e9ecef;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 17px;
   cursor: pointer;
@@ -333,7 +326,7 @@ const Button2 = styled.button`
   border-radius: 7px;
   background: #e9ecef;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 17px;
   cursor: pointer;
@@ -355,13 +348,13 @@ const Wrap3 = styled.div`
 `;
 
 const Title3 = styled.div`
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 48px;
 `;
 
 const Desc3 = styled.div`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 16px;
 `;
 
@@ -373,44 +366,44 @@ const Li = styled.li`
 `;
 
 const DescTitle = styled.p`
-  font-family: 'a19';
+  font-family: "a19";
   margin-top: 10px;
   font-size: 15px;
 `;
 
 const Desc = styled.p`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 14px;
 `;
 
-const Back4 = styled.div`
-  background-color: rgb(248, 249, 250);
-  text-align: center;
-  padding: 100px;
-`;
+// const Back4 = styled.div`
+//   background-color: rgb(248, 249, 250);
+//   text-align: center;
+//   padding: 100px;
+// `;
 
-const Title = styled.h2`
-  text-align: center;
-  margin: 0px;
-`;
+// const Title = styled.h2`
+//   text-align: center;
+//   margin: 0px;
+// `;
 
-const Wrap4 = styled.div`
-  background-color: rgb(248, 249, 250);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 50px;
-`;
+// const Wrap4 = styled.div`
+//   background-color: rgb(248, 249, 250);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 30px;
+//   margin-top: 50px;
+// `;
 
 const Title4 = styled.div`
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 40px;
 `;
 
 const Desc4 = styled.div`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 16px;
 `;
 
@@ -422,23 +415,23 @@ const Button3 = styled.button`
   border-radius: 7px;
   background: #e9ecef;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-weight: 600;
   font-size: 17px;
   cursor: pointer;
 `;
 
-const Box = styled.div`
-  background-color: rgb(248, 249, 250);
-  height: 400px;
-`;
+// const Box = styled.div`
+//   background-color: rgb(248, 249, 250);
+//   height: 400px;
+// `;
 
-const Image = styled.div`
-  width: 200px;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: inset 0px 0px 0px 1px rgb(0 0 0 / 15%);
-  box-sizing: border-box;
-`;
+// const Image = styled.div`
+//   width: 200px;
+//   height: 200px;
+//   position: relative;
+//   overflow: hidden;
+//   border-radius: 12px;
+//   box-shadow: inset 0px 0px 0px 1px rgb(0 0 0 / 15%);
+//   box-sizing: border-box;
+// `;

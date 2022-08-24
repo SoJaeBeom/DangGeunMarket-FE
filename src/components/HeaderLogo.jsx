@@ -1,14 +1,13 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderLogo() {
   const navigate = useNavigate();
   return (
     <div
       onClick={() => {
-        navigate('/');
+        navigate("/");
       }}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: "pointer" }}
     >
       <svg
         width="100"

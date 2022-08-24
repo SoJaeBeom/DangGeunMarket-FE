@@ -1,38 +1,38 @@
-import styled from 'styled-components';
-import HeaderLogo from './HeaderLogo';
-import { useNavigate } from 'react-router-dom';
-import { getCookieToken, removeCookieToken } from '../storage/Cookie';
+import styled from "styled-components";
+import HeaderLogo from "./HeaderLogo";
+import { useNavigate } from "react-router-dom";
+import { getCookieToken, removeCookieToken } from "../storage/Cookie";
 
 export default function Header() {
   const cookie = getCookieToken();
   const logout = () => {
     removeCookieToken();
-    window.location.href = '/';
+    window.location.href = "/";
   };
   const navigate = useNavigate();
 
-  const moveToPages = (event) => {
-    switch (event.target.id) {
-      case 'trade':
-        navigate('/posts');
-        break;
+  // const moveToPages = (event) => {
+  //   switch (event.target.id) {
+  //     case 'trade':
+  //       navigate('/posts');
+  //       break;
 
-      case 'login':
-        navigate('/posts');
-        break;
+  //     case 'login':
+  //       navigate('/posts');
+  //       break;
 
-      case 'signup':
-        navigate('/posts');
-        break;
+  //     case 'signup':
+  //       navigate('/posts');
+  //       break;
 
-      case 'chat':
-        navigate('/chat');
-        break;
+  //     case 'chat':
+  //       navigate('/chat');
+  //       break;
 
-      default:
-        break;
-    }
-  };
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <HeaderContainer>
@@ -42,14 +42,14 @@ export default function Header() {
           <TextBox>
             <Transaction
               onClick={() => {
-                navigate('/posts');
+                navigate("/posts");
               }}
             >
               중고거래
             </Transaction>
             <ProductAdd
               onClick={() => {
-                navigate('/add');
+                navigate("/add");
               }}
             >
               상품 등록
@@ -70,14 +70,14 @@ export default function Header() {
           <TextBox>
             <Transaction
               onClick={() => {
-                cookie !== undefined ? navigate('/posts') : navigate('/signin');
+                cookie !== undefined ? navigate("/posts") : navigate("/signin");
               }}
             >
               중고거래
             </Transaction>
             <ProductAdd
               onClick={() => {
-                cookie !== undefined ? navigate('/add') : navigate('/signin');
+                cookie !== undefined ? navigate("/add") : navigate("/signin");
               }}
             >
               상품 등록
@@ -86,14 +86,14 @@ export default function Header() {
           {/* navigate('/add'); */}
           <LoginButton
             onClick={() => {
-              navigate('/signin');
+              navigate("/signin");
             }}
           >
             로그인
           </LoginButton>
           <Signup
             onClick={() => {
-              navigate('/signup');
+              navigate("/signup");
             }}
           >
             회원가입
@@ -126,7 +126,7 @@ const TextBox = styled.div`
 `;
 
 const Transaction = styled.span`
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 18px;
   font-weight: 700;
   margin-right: 20px;
@@ -138,7 +138,7 @@ const Transaction = styled.span`
 `;
 
 const ProductAdd = styled.span`
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
@@ -158,7 +158,7 @@ const LoginButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
 
@@ -175,7 +175,7 @@ const Signup = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
   &:hover {
@@ -191,7 +191,7 @@ const Chatting = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
   &:hover {
@@ -208,7 +208,7 @@ const LogoutButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
   &:hover {
