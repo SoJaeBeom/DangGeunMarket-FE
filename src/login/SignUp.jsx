@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -19,12 +18,11 @@ export default function SignUp() {
   const [passwordError, setPassWordError] = useState(false);
   const [confirmpwdError, setConFirmPwdError] = useState(false);
 
-  
   const navigate = useNavigate();
   
   // 아이디
   const onChangeUserId = (event) => {
-    const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
+    const userIdRegex = /^[A-Za-z0-9+]{4,12}$/;
     if (!event.target.value || userIdRegex.test(event.target.value)) {
       setUserIdError(false);
     } else {
@@ -36,7 +34,8 @@ export default function SignUp() {
   
   // 닉네임
   const onChangeNickName = (event) => {
-    if (!event.target.value) {
+    const nicknameRegex = /^[a-zA-Z0-9가-힣ㄱ-ㅎ~!@#$%^&*()_+|<>?:{}`';,./-=]{2,8}$/;
+    if (!event.target.value || nicknameRegex.test(event.target.value)) {
       setNickNameError(false);
     } else{
       setNickNameError(true);
@@ -46,7 +45,8 @@ export default function SignUp() {
   
   // 지역
   const onChangeLoCation = (event) => {
-    if (!event.target.value) {
+    const locationRegex = /[가-힣]{5,}/;
+    if (!event.target.value || locationRegex.test(event.target.value)) {
       setLoCationError(false);
     } else {
       setLoCationError(true);
@@ -56,7 +56,7 @@ export default function SignUp() {
   
   // 비밀번호
   const onChangePassWord = (event) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;   
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,12}$/;   
     if (!event.target.value || passwordRegex.test(event.target.value)) {
       setPassWordError(false);
       
@@ -84,14 +84,19 @@ export default function SignUp() {
     if (!userId) setUserIdError(true);  // 유저아이디가 빈문자열이면 유저아이디에러를 트루로 바꿈
     if (!password) setPassWordError(true);
     if (!confirmpwd) setConFirmPwdError(true);
+    if (!nickname) setNickNameError(true);
+    if (location) setLoCationError(true);
     console.log("validation", userIdError, nicknameError, locationError, passwordError, confirmpwdError);
     if (
       userId &&
       password &&
       confirmpwd &&
+      nickname &&
+      location &&
       !userIdError &&
       !passwordError &&
-      !confirmpwdError
+      !confirmpwdError &&
+      !nicknameError 
     ) {
       return true;
     } else {
@@ -99,26 +104,18 @@ export default function SignUp() {
     }
     
   };
-
-  
-  
+  // 회원가입 버튼
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        const data = await axios.post("http://54.180.2.97/user/signup", {
-          
+          const data = await axios.post("http://54.180.2.97/user/signup", {
           username: userId,
           nickname,
           location,
           password,
-          
         });
         console.log(data);
-      } catch (error) {
-        throw new Error(error);
-      }
-      
-      alert("회원 가입 완료하였습니다!!");
+      alert(data.data.data);  // 데이터 안에 데이터 안에 데이터 값
       setUserId("");
       setPassWord("");
       setConFirmPwd("");
@@ -126,23 +123,49 @@ export default function SignUp() {
       setLoCation("");
       navigate("/signin");
       return;
+        
+      } catch (error) {
+        throw new Error(error);
+      }
       
     } else {
       alert("입력 정보를 다시 확인하세요!!");
     }
-    
   };
+  // 아이디 중복확인 버튼
+  const onIdCheck = async () => {
+      try {
+          const data = await axios.post("http://54.180.2.97/user/signup/usercheck", {
+          username: userId,
+        })
+        console.log(data);
+      if (data.data.data === "사용 가능한 아이디입니다") {
+         alert(data.data.data);
+         console.log(data.data.data);
+         return;
+      }
+      alert("이미 사용중인 아이디입니다.");
+      console.log(data.error);
+      } catch (error) {
+        throw new Error(error);
+      }
+  };
+  // 닉네임 중복확인 버튼
+  const onNickCheck = async () => {
+    try {
+        const data = await axios.post("http://54.180.2.97/user/signup/nickcheck", {
+        nickname,
+      })
+    if (data.data.data === '사용 가능한 닉네임입니다') {
+       alert(data.data.data);
+       return;
+    } 
+    alert("이미 사용중인 닉네임입니다.");
+    } catch (error) {
+      throw new Error(error);
+    }
+};
 
-  // const [isError, setIsError] = useState(true);
-  // const [isOnCheck, setIsOnCheck] = useState(false); //중복체크를 on 할 것인지 안할것인지 판별 여부
-  // const [isCheck, setIsCheck] = useState(false);
-
-  // const HandleOnChange = (e) => {
-  //   //한번이라도 수정한 적이 있으면 isWrite를 true로, isCheck를 false 변경시킨다.
-  //   if (isCheck) setIsCheck(false);
-    
-  // }
-  
   return(
    <StLayout> 
     <StHeader>회원가입</StHeader>
@@ -171,7 +194,7 @@ export default function SignUp() {
         value={userId}
         onChange={onChangeUserId}
         />
-        <ErrorMessage>사용자 ID는 5자 이상이어야 하며 문자 또는 숫자를 포함해주세요.</ErrorMessage>
+        <ErrorMessage>사용자 ID는 4자 이상, 12자 이하 영문 또는 숫자를 포함해주세요.</ErrorMessage>
         </>
       ) : (
         <StInput
@@ -184,7 +207,7 @@ export default function SignUp() {
         )}
         
       </StInputForm>
-      <StIdBtn type="button">
+      <StIdBtn type="button" onClick={onIdCheck}>
         중복확인
       </StIdBtn>
     </StListContainer>
@@ -199,14 +222,28 @@ export default function SignUp() {
         </StIdBox>
       </StIdForm>
       <StInputForm>
+        {/* 닉네임 에러 */}
+      {nicknameError ? (
+      <>
+      <StInput 
+        id="nickname" 
+        placeholder="닉네임을 입력해주세요" 
+        type="text" 
+        value={nickname}
+        onChange={onChangeNickName}
+        />
+        <ErrorMessage>닉네임은 2자 이상, 8자 이하 모든 문자 사용이 가능합니다.</ErrorMessage>
+        </>
+      ) : (
       <StInput  
       id="nickname" 
       placeholder="닉네임을 입력해주세요" 
       value={nickname}
       onChange={onChangeNickName}
       /> 
+      )}
       </StInputForm>
-      <StIdBtn type="button">
+      <StIdBtn type="button" onClick={onNickCheck}>
         중복확인
       </StIdBtn>
     </StListContainer>
@@ -221,12 +258,27 @@ export default function SignUp() {
         </StIdBox>
       </StIdForm>
       <StInputForm>
+        {/* 지역 에러 */}
+      {locationError ? (
+      <>
+      <StInput 
+        id="location" 
+        placeholder="ex) 서울특별시" 
+        type="text" 
+        value={location}
+        onChange={onChangeLoCation}
+        />
+        <ErrorMessage>지역은 5자 이상 한글만 사용 가능합니다.</ErrorMessage>
+        </>
+      ) : (
       <StInput 
       id="location" 
-      placeholder="서울특별시"
+      placeholder="ex) 서울특별시"
+      type="text" 
       value={location} 
       onChange={onChangeLoCation}
       /> 
+      )}
       </StInputForm>
     </StListContainer>
 
@@ -240,6 +292,7 @@ export default function SignUp() {
         </StIdBox>
       </StIdForm>
       <StInputForm>
+        {/* 비밀번호 에러 */}
       {passwordError ? (
       <>
       <StInput 
@@ -249,7 +302,7 @@ export default function SignUp() {
       value={password}
       onChange={onChangePassWord}
       /> 
-      <ErrorMessage>비밀번호는 8자 이상이어야 하며 문자와 숫자 1자 이상을 포함해주세요.</ErrorMessage>
+      <ErrorMessage>비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를 포함해주세요.</ErrorMessage>
       </>
       ) : (
       <StInput 
@@ -273,6 +326,7 @@ export default function SignUp() {
         </StIdBox>
       </StIdForm>
       <StInputForm>
+        {/* 비밀번호 재확인 에러 */}
       {confirmpwdError ? (
       <>
       <StInput 
@@ -295,7 +349,7 @@ export default function SignUp() {
     )}
       </StInputForm>
     </StListContainer>
-
+      
     <StSignUpbtn 
     type="submit" 
     width="240" 
