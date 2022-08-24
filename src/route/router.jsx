@@ -7,6 +7,7 @@ import PostsContainer from "../pages/PostsContainer";
 import AddPosts from "../pages/AddPosts";
 import EditPosts from "../pages/EditPosts";
 import Detail from "../pages/Detail";
+import Chat from "../components/Chat";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="add" element={<AddPosts />} />
         <Route path="edit/:id" element={<EditPosts />} />
         <Route path="detail/:id" element={<Detail />} />
+        <Route path="chat" element={<Chat />} />
         <Route path="*" element={<div>404 Error</div>} />
       </Routes>
     </BrowserRouter>

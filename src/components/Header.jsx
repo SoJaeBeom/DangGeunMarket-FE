@@ -1,9 +1,33 @@
-import styled from 'styled-components';
-import HeaderLogo from './HeaderLogo';
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import HeaderLogo from "./HeaderLogo";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
+
+  const moveToPages = (event) => {
+    switch (event.target.id) {
+      case "trade":
+        navigate("/posts");
+        break;
+
+      case "login":
+        navigate("/posts");
+        break;
+
+      case "signup":
+        navigate("/posts");
+        break;
+
+      case "chat":
+        navigate("/chat");
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <HeaderContainer>
       <HeaderLogo />
@@ -22,10 +46,17 @@ export default function Header() {
         >
           상품 등록
         </ProductAdd>
+
       </TextBox>
-      <LoginButton>로그인</LoginButton>
-      <Signup>회원가입</Signup>
-      <Chatting>채팅하기</Chatting>
+      <LoginButton id="login" onClick={moveToPages}>
+        로그인
+      </LoginButton>
+      <Signup id="signup" onClick={moveToPages}>
+        회원가입
+      </Signup>
+      <Chatting id="chat" onClick={moveToPages}>
+        채팅하기
+      </Chatting>
     </HeaderContainer>
   );
 }
@@ -51,7 +82,7 @@ const TextBox = styled.div`
 `;
 
 const Transaction = styled.span`
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 18px;
   font-weight: 700;
   margin-right: 20px;
@@ -61,6 +92,7 @@ const Transaction = styled.span`
     color: #e57a1a;
   }
 `;
+
 
 const ProductAdd = styled.span`
   font-family: 'a15';
@@ -83,7 +115,7 @@ const LoginButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
 
@@ -100,7 +132,7 @@ const Signup = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
   &:hover {
@@ -116,7 +148,7 @@ const Chatting = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 16px;
   font-weight: 600;
   &:hover {
