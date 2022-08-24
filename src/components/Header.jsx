@@ -10,6 +10,30 @@ export default function Header() {
     window.location.href = '/';
   };
   const navigate = useNavigate();
+
+  const moveToPages = (event) => {
+    switch (event.target.id) {
+      case 'trade':
+        navigate('/posts');
+        break;
+
+      case 'login':
+        navigate('/posts');
+        break;
+
+      case 'signup':
+        navigate('/posts');
+        break;
+
+      case 'chat':
+        navigate('/chat');
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <HeaderContainer>
       <HeaderLogo />

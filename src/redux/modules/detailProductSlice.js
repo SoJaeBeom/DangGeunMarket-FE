@@ -23,7 +23,7 @@ export const __getDetailProduct = createAsyncThunk(
           },
         }
       );
-      console.log(data);
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       throw error;
