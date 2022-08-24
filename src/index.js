@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import GlobalStyle from './styles/GlobalStyles';
 import GlobalFonts from './styles/GlobalFonts';
 
+
 import './index.css';
 import App from './App';
 
