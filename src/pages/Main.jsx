@@ -8,6 +8,10 @@ import homeicon3 from '../image/homeicon3.png';
 import mainimage1 from '../image/mainimage1.png';
 
 export default function Main() {
+
+  
+
+  
   return (
     <MainContainer>
       <Header />
@@ -247,6 +251,7 @@ export default function Main() {
       </section> */}
       <Footer />
     </MainContainer>
+
   );
 }
 
