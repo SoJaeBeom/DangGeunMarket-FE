@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getCookieToken } from '../../storage/Cookie';
 
 const initialState = {
   detailProduct: {},
@@ -7,6 +8,8 @@ const initialState = {
   isFinish: false,
   error: null,
 };
+
+const cookie = getCookieToken();
 
 export const __getDetailProduct = createAsyncThunk(
   'detailProduct/__getDetailProduct',
@@ -16,8 +19,7 @@ export const __getDetailProduct = createAsyncThunk(
         `http://54.180.2.97/api/product/id/${payload}`,
         {
           headers: {
-            authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjYxNDAzODQxfQ.GVqRnQ42Ndluz0SuWwlKWSTizF5COXm23lNvKN3mHaQ',
+            Authorization: cookie,
           },
         }
       );
@@ -35,8 +37,7 @@ export const __postDetailProduct = createAsyncThunk(
     try {
       const data = await axios.post('http://54.180.2.97/api/product', payload, {
         headers: {
-          authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjYxNDAzODQxfQ.GVqRnQ42Ndluz0SuWwlKWSTizF5COXm23lNvKN3mHaQ',
+          Authorization: cookie,
         },
       });
       console.log(data);
@@ -58,8 +59,7 @@ export const __deleteDetailProduct = createAsyncThunk(
         `http://54.180.2.97/api/product/${payload}`,
         {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjYxNDAzODQxfQ.GVqRnQ42Ndluz0SuWwlKWSTizF5COXm23lNvKN3mHaQ',
+            Authorization: cookie,
           },
         }
       );
@@ -88,8 +88,7 @@ export const __editDetailProduct = createAsyncThunk(
         },
         {
           headers: {
-            authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjYxNDAzODQxfQ.GVqRnQ42Ndluz0SuWwlKWSTizF5COXm23lNvKN3mHaQ',
+            Authorization: cookie,
           },
         }
       );

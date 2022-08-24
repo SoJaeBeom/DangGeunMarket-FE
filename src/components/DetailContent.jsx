@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { __deleteDetailProduct } from '../redux/modules/detailProductSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import { getCookieToken } from '../storage/Cookie';
 
 export default function DetailContent({ detailProduct }) {
   const avatarUrl = `https://www.gravatar.com/avatar/${md5(
@@ -12,6 +13,7 @@ export default function DetailContent({ detailProduct }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = detailProduct.id;
+  const cookie = getCookieToken();
 
   const displayedAt = (paramTime) => {
     const parseTime = Date.parse(paramTime);
@@ -69,14 +71,15 @@ export default function DetailContent({ detailProduct }) {
         </Link>
         <DetailContentButton
           onClick={() => {
-            if (window.confirm('정말 삭제하나요?')) {
+            if (window.confirm('정말 삭제하시나요?')) {
               deleteProduct();
-              // navigate('/posts');
+              navigate('/posts');
             }
           }}
         >
           삭제하기
         </DetailContentButton>
+
         <DetailContentCatting>채팅으로 거래하기</DetailContentCatting>
       </DetailContentDesc>
     </DetailContentBox>

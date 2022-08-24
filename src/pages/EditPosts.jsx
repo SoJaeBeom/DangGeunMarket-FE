@@ -141,7 +141,7 @@ export default function EditPosts() {
             EditProduct();
           }}
         >
-          추가하기
+          수정하기
         </ProductAddButton>
         <Footer />
       </TextBox>

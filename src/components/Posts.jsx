@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import heartPath from '../image/heart_blank.png';
+import heart from '../image/heart.svg';
 
 export default function Posts({ product }) {
   return (
@@ -16,8 +16,8 @@ export default function Posts({ product }) {
           <PostsDescTitle>{product.name}</PostsDescTitle>
           <PostsDescPrice>{product.price} 원</PostsDescPrice>
           <PostsDescLocal>{product.location}</PostsDescLocal>
-          <PostsDescLike src={heartPath} alt="heart" />
-          10
+          <PostsDescLike src={heart} alt="heart" />
+          <PostsDescLikeText>관심 10</PostsDescLikeText>
         </PostsDescInfoSection>
       </Link>
     </PostsBox>
@@ -36,14 +36,18 @@ const PostsBox = styled.div`
   margin-bottom: 40px;
 `;
 const PostsDescImgSection = styled.div`
-  height: 220px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   background-color: #f8f9fa;
   border-radius: 8px;
 `;
 const PostsDescImg = styled.img`
-  height: 220px;
+  height: 200px;
   display: block;
+  background-position: center;
+  background-size: cover;
+
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -78,6 +82,15 @@ const PostsDescPrice = styled.p`
   padding-top: 5px;
 `;
 const PostsDescLike = styled.img`
-  width: 15px;
+  width: 10px;
   padding-top: 5px;
+
+  font-family: 'a11';
+  font-size: 12px;
+`;
+
+const PostsDescLikeText = styled.span`
+  font-family: 'a11';
+  font-size: 13px;
+  padding-left: 5px;
 `;
