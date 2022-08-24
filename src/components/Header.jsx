@@ -8,8 +8,20 @@ export default function Header() {
     <HeaderContainer>
       <HeaderLogo />
       <TextBox>
-        <Transaction>중고거래</Transaction>
-        <News>동네 소식</News>
+        <Transaction
+          onClick={() => {
+            navigate('/posts');
+          }}
+        >
+          중고거래
+        </Transaction>
+        <ProductAdd
+          onClick={() => {
+            navigate('/add');
+          }}
+        >
+          상품 등록
+        </ProductAdd>
       </TextBox>
       <LoginButton>로그인</LoginButton>
       <Signup>회원가입</Signup>
@@ -17,6 +29,10 @@ export default function Header() {
     </HeaderContainer>
   );
 }
+
+// if (cookie == null) {
+//   window.alert('로그인후 사용해주세요~');
+// }
 
 const HeaderContainer = styled.div`
   max-width: 1200px;
@@ -46,7 +62,7 @@ const Transaction = styled.span`
   }
 `;
 
-const News = styled.span`
+const ProductAdd = styled.span`
   font-family: 'a15';
   font-size: 18px;
   font-weight: 700;

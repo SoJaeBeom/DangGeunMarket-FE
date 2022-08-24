@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Posts from "../components/Posts";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import Posts from '../components/Posts';
+import Grid from '../styles/Grid';
+import Footer from './Footer';
+import Header from './Header';
 
 export default function PostsList() {
   const [productListNew, setProductList] = useState();
 
   const getProductList = async () => {
     try {
-      const data = await axios.get("http://3.34.98.245/api/product");
+      const data = await axios.get('http://54.180.2.97/api/product');
       setProductList(data.data.data);
     } catch (error) {
       console.log(error);
@@ -25,20 +28,35 @@ export default function PostsList() {
   });
 
   return (
-    <PostsListBox>
-      <PostsListTitle>중고 거래</PostsListTitle>
-      {productList}
-    </PostsListBox>
+    <PostsContainer>
+      <Header />
+      <PostsListTitle>중고거래 인기매물</PostsListTitle>
+      <PostsListBox>
+        <Grid padding="25px" width="1200px" margin="0 auto;">
+          {productList}
+        </Grid>
+      </PostsListBox>
+      <Footer />
+    </PostsContainer>
   );
 }
+const PostsContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
+const PostsListTitle = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+
+  font-family: 'a15';
+  font-size: 32px;
+  font-weight: 600;
+`;
 
 const PostsListBox = styled.div`
-  border-radius: 8px;
-  border: 1px solid #e9ecef;
-  width: 800px;
-  margin: 0 auto;
+  margin: auto;
   margin-bottom: 20px;
   background-color: #fff;
 `;
-
-const PostsListTitle = styled.p``;

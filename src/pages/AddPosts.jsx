@@ -3,21 +3,16 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import addBanner from '../image/addBanner.svg';
-import imageBox from '../image/imageBox.jpg';
+import imageBox from '../image/imageBox.svg';
 import deleteimage from '../image/deleteimage.png';
 import inputbox from '../image/inputbox.svg';
 import descinput from '../image/descinput.svg';
 import addbutton from '../image/addbutton.png';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  uploadBytesResumable,
-} from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../shared/firebase';
-import { __postProduct } from '../redux/modules/product';
+import { __postDetailProduct } from '../redux/modules/detailProductSlice';
 
 export default function AddPosts() {
   const [imgProductList, setImgProductList] = useState([]);
@@ -35,7 +30,7 @@ export default function AddPosts() {
       imgProductList: imgProductList,
     };
 
-    dispatch(__postProduct(product));
+    dispatch(__postDetailProduct(product));
     console.log(product);
   };
   // firebase
@@ -88,7 +83,7 @@ export default function AddPosts() {
           />
         </label>
       </Appstyle>
-      <ListContainer>
+      <ListContainer i={handleAddImages}>
         {imgProductList.map((image, id) => (
           <ListBox key={id}>
             <Delete onClick={() => handleDeleteImage(id)}>
@@ -187,6 +182,10 @@ const Appstyle = styled.div`
 
 const ListContainer = styled.div`
   max-width: 1800px;
+  /* background: url(${({ i }) => (i ? imageBox : null)}); */
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   height: 300px;
   margin: auto;
   margin-top: 50px;
