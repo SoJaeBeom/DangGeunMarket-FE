@@ -1,36 +1,37 @@
-import md5 from "md5";
-import styled from "styled-components";
+import md5 from 'md5';
+import styled from 'styled-components';
+import { __deleteDetailProduct } from '../redux/modules/detailProductSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function DetailContent({ detailProduct }) {
-  // console.log(
-  //   "DetailContent!!!!!",
-  //   detailProduct.id,
-  //   detailProduct.nickname,
-  //   detailProduct.name,
-  //   detailProduct.price,
-  //   detailProduct.content,
-  //   detailProduct.location,
-  //   detailProduct.createdAt
-  // );
-
   const avatarUrl = `https://www.gravatar.com/avatar/${md5(
     detailProduct.nickname
   )}?d=wavatar`;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const id = detailProduct.id;
 
   const displayedAt = (paramTime) => {
     const parseTime = Date.parse(paramTime);
     const date = new Date(parseTime);
     const returnDate =
       date.getFullYear() +
-      "/" +
+      '/' +
       (date.getMonth() + 1) +
-      "/" +
+      '/' +
       date.getDate() +
-      " " +
+      ' ' +
       date.getHours() +
-      ":" +
+      ':' +
       date.getMinutes();
     return returnDate;
+  };
+
+  const deleteProduct = () => {
+    dispatch(__deleteDetailProduct(id));
+    console.log(id);
   };
 
   return (
@@ -47,7 +48,6 @@ export default function DetailContent({ detailProduct }) {
             </DetailContentUserInfoLoc>
           </DetailContentUserInfoWrapper>
         </DetailContentUserInfo>
-        <DetailContentTemp>매너온도</DetailContentTemp>
       </DetailContentProfile>
 
       <DetailContentDesc>
@@ -63,12 +63,29 @@ export default function DetailContent({ detailProduct }) {
           {detailProduct.content}
         </DetailContentDescContent>
         <DetailContentDescEtc>관심 1 ∙ 채팅 0 ∙ 조회 80</DetailContentDescEtc>
+
+        <Link to={`/edit/${detailProduct.id}`}>
+          <DetailContentButton>수정하기</DetailContentButton>
+        </Link>
+        <DetailContentButton
+          onClick={() => {
+            if (window.confirm('정말 삭제하나요?')) {
+              deleteProduct();
+              // navigate('/posts');
+            }
+          }}
+        >
+          삭제하기
+        </DetailContentButton>
+        <DetailContentCatting>채팅으로 거래하기</DetailContentCatting>
       </DetailContentDesc>
     </DetailContentBox>
   );
 }
 
-const DetailContentBox = styled.div``;
+const DetailContentBox = styled.div`
+  width: 100%;
+`;
 const DetailContentProfile = styled.div`
   width: 500px;
   margin: 0 auto;
@@ -97,6 +114,7 @@ const DetailContentUserInfoNick = styled.div`
   width: 66px;
   height: 25px;
   margin-top: 3px;
+  padding-left: 5px;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
@@ -107,19 +125,11 @@ const DetailContentUserInfoNick = styled.div`
 const DetailContentUserInfoLoc = styled.div`
   width: 66px;
   height: 25px;
+  padding-left: 5px;
   font-size: 13px;
   line-height: 1.46;
   letter-spacing: -0.6px;
   color: #212529;
-`;
-
-const DetailContentTemp = styled.div`
-  width: 136px;
-  height: 50px;
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: -0.6px;
-  color: #868e96;
 `;
 
 const DetailContentDesc = styled.div`
@@ -131,7 +141,7 @@ const DetailContentDesc = styled.div`
 `;
 
 const DetailContentDescTitle = styled.h1`
-  ont-size: 20px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -0.6px;
@@ -164,7 +174,7 @@ const DetailContentDescPrice = styled.div`
 `;
 
 const DetailContentDescContent = styled.p`
-  ont-size: 17px;
+  font-size: 17px;
   line-height: 1.6;
   letter-spacing: -0.6px;
   margin: 16px 0;
@@ -176,4 +186,32 @@ const DetailContentDescEtc = styled.p`
   line-height: 1.46;
   letter-spacing: -0.6px;
   color: #868e96;
+`;
+
+const DetailContentCatting = styled.button`
+  width: 180px;
+  height: 50px;
+  float: right;
+  margin-top: 10px;
+  background: #ff8a3b;
+  border: none;
+  border-radius: 7px;
+
+  font-family: 'a15';
+  color: white;
+  cursor: pointer;
+`;
+
+const DetailContentButton = styled.button`
+  width: 100px;
+  height: 50px;
+  border: none;
+  margin-right: 20px;
+  margin-top: 10px;
+  background: #ff8a3b;
+  border-radius: 7px;
+
+  font-family: 'a15';
+  color: white;
+  cursor: pointer;
 `;

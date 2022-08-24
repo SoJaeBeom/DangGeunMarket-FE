@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import imgPath from '../image/항해99.jpeg';
 import heartPath from '../image/heart_blank.png';
 
 export default function Posts({ product }) {
@@ -8,12 +7,15 @@ export default function Posts({ product }) {
     <PostsBox>
       <Link to={`/detail/${product.id}`}>
         <PostsDescImgSection>
-          <PostsDescImg src={imgPath} alt="항해" />
+          <PostsDescImg
+            src={product.imgProductList[0].imgUrl}
+            alt="heart"
+          ></PostsDescImg>
         </PostsDescImgSection>
         <PostsDescInfoSection>
           <PostsDescTitle>{product.name}</PostsDescTitle>
-          <PostsDescLocal>{product.location}</PostsDescLocal>
           <PostsDescPrice>{product.price} 원</PostsDescPrice>
+          <PostsDescLocal>{product.location}</PostsDescLocal>
           <PostsDescLike src={heartPath} alt="heart" />
           10
         </PostsDescInfoSection>
@@ -22,28 +24,36 @@ export default function Posts({ product }) {
   );
 }
 
+// src={product.imgProductList[0]}
+
 const PostsBox = styled.div`
   position: relative;
   text-align: left;
   display: inline-block;
-  width: 217px;
-  margin-right: 34px;
+  width: 15.625rem;
+  margin-right: 35px;
+  padding-left: 40px;
   margin-bottom: 40px;
 `;
 const PostsDescImgSection = styled.div`
-  height: 160px;
+  height: 220px;
   overflow: hidden;
   background-color: #f8f9fa;
   border-radius: 8px;
 `;
 const PostsDescImg = styled.img`
-  height: 160px;
+  height: 220px;
   display: block;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 `;
-const PostsDescInfoSection = styled.div``;
+const PostsDescInfoSection = styled.div`
+  padding-top: 10px;
+`;
 const PostsDescTitle = styled.span`
   display: block;
-  font-weight: 600;
+  font-family: 'a11';
   color: #212529;
   font-size: 16px;
   line-height: 18px;
@@ -57,6 +67,7 @@ const PostsDescLocal = styled.p`
   line-height: 18px;
   margin-top: 6px;
   color: #868e96;
+  padding-top: 10px;
 `;
 const PostsDescPrice = styled.p`
   font-weight: 600;
@@ -64,7 +75,9 @@ const PostsDescPrice = styled.p`
   font-size: 15px;
   line-height: 18px;
   margin-top: 6px;
+  padding-top: 5px;
 `;
 const PostsDescLike = styled.img`
   width: 15px;
+  padding-top: 5px;
 `;

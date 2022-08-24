@@ -1,140 +1,60 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Header from './Header';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function DetailImage({ detailProduct }) {
-  console.log("DetailImage!!! ", detailProduct.imgProductList);
-  const imageData = {
-    imgPathList: [
-      "https://cdn.stocksnap.io/img-thumbs/960w/PS7M4VMB9P.jpg",
-      "https://cdn.stocksnap.io/img-thumbs/960w/KLSTPV1LBV.jpg",
-      "https://cdn.stocksnap.io/img-thumbs/960w/N06ELOLAT9.jpg",
-      "https://cdn.stocksnap.io/img-thumbs/960w/YN0MX9OUSY.jpg",
-      "https://cdn.stocksnap.io/img-thumbs/960w/JVBWZNCQLW.jpg",
-      "https://cdn.stocksnap.io/img-thumbs/960w/LN6MZNMBUR.jpg",
-    ],
-  };
-
-  const [slideIndex, setSlideIndex] = useState(0);
-
-  const showDivs = (idx) => {
-    const index = detailProduct.imgProductList.length - 1;
-    if (-1 < idx && idx === index) {
-      setSlideIndex(idx);
-    } else if (idx < 0) {
-      setSlideIndex(detailProduct.imgProductList.length - 1);
-    } else if (idx > index) {
-      setSlideIndex(0);
-    } else if (idx < index) {
-      setSlideIndex(idx);
-    }
-  };
-
-  const onPrev = () => {
-    showDivs(slideIndex - 1);
-  };
-
-  const onNext = () => {
-    showDivs(slideIndex + 1);
-  };
-
-  const currentDivs = (idx) => {
-    showDivs(idx);
+  const settings = {
+    dots: true,
+    // 아래 점
+    infinite: true,
+    //슬라이드 끝까지 갔을때, 다음을 누를 경우 처음 슬라이드가 나온다.
+    autoplay: true,
+    speed: 800,
+    //슬라이드 변경 시간
+    slidesToShow: 1,
+    //한번에 보이는 슬라이드 개수
+    slidesToScroll: 1,
+    //한번 이동할 때 넘어가는 슬라이드 개수
+    autoplaySpeed: 3000,
+    //자동 재생 유지 시간
+    pauseOnHover: true,
   };
 
   return (
     <div>
-      <DetailImageSlide>
-        <DetailSlideBox>
-          <DetailSlideList
-            style={{
-              transform: `translateX(
-            ${slideIndex * -500}px`,
-            }}
-          >
-            <DetailSlideContent>
-              {detailProduct.imgProductList.map((image, index) => (
-                <DetailImageItem
-                  key={index}
-                  src={image.imgUrl}
-                  alt="이미지_슬라이더"
-                />
-              ))}
-            </DetailSlideContent>
-          </DetailSlideList>
-        </DetailSlideBox>
-        <IndicatorBtnContainer>
-          <PrevBtn onClick={() => onPrev(-1)}>&#10094;</PrevBtn>
-          <NextBtn onClick={() => onNext(1)}>&#10095;</NextBtn>
+      <Header />
+      <DetailSlideBox>
+        <Slider {...settings}>
           {detailProduct.imgProductList.map((image, index) => (
-            <Dot key={index} onClick={currentDivs} />
+            <DetailImageItem
+              key={index}
+              src={image.imgUrl}
+              alt="이미지_슬라이더"
+            />
           ))}
-        </IndicatorBtnContainer>
-      </DetailImageSlide>
+        </Slider>
+      </DetailSlideBox>
     </div>
   );
 }
 
-const DetailImageSlide = styled.div`
-  width: 500px;
-  margin: auto;
-`;
 const DetailSlideBox = styled.div`
-  width: 100%;
+  width: 37.5rem;
+  height: 34.375rem;
   margin: auto;
   overflow-x: hidden;
-`;
-
-const DetailSlideList = styled.div`
-  width: 3000px;
-  height: 330px;
-  overflow: hidden;
-`;
-const DetailSlideContent = styled.div`
-  display: flex;
-  float: left;
-  width: 500px;
-  height: 500px;
+  margin-top: 3.125rem;
+  border-radius: 20px;
 `;
 
 const DetailImageItem = styled.img`
-  width: 100%;
-  object-fit: cotain;
-  height: auto;
-`;
-
-const IndicatorBtnContainer = styled.div`
-  text-align: center;
-`;
-
-const PrevBtn = styled.div`
-  cursor: pointer;
-  float: left;
-  &:hover {
-    color: #eee;
-  }
-`;
-
-const NextBtn = styled.div`
-  cursor: pointer;
-  float: right;
-  &:hover {
-    color: #eee;
-  }
-`;
-const Dot = styled.span`
-  height: 15px;
-  width: 15px;
-  padding: 0;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 50%;
-  text-align: center;
-  color: #fff;
-  display: inline-block;
-  border: 1px solid #ccc;
-  background-color: ${(prop) => (prop.active ? "#fff" : "transparent")};
-  &: hover {
-    color: #000 !important;
-    background-color: #fff;
-  }
+  width: 500px;
+  height: 500px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 20px;
 `;
