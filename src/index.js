@@ -5,6 +5,7 @@ import GlobalFonts from './styles/GlobalFonts';
 import { Provider } from 'react-redux';
 import store from './redux/config/configStore';
 
+
 import './index.css';
 import App from './App';
 
