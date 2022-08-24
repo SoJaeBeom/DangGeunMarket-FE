@@ -132,7 +132,16 @@ export default function SignUp() {
     }
     
   };
-  
+
+  // const [isError, setIsError] = useState(true);
+  // const [isOnCheck, setIsOnCheck] = useState(false); //중복체크를 on 할 것인지 안할것인지 판별 여부
+  // const [isCheck, setIsCheck] = useState(false);
+
+  // const HandleOnChange = (e) => {
+  //   //한번이라도 수정한 적이 있으면 isWrite를 true로, isCheck를 false 변경시킨다.
+  //   if (isCheck) setIsCheck(false);
+    
+  // }
   
   return(
    <StLayout> 
