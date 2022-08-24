@@ -11,12 +11,11 @@ const initialState = {
 export const __getDetailProduct = createAsyncThunk(
   "detailProduct/__getDetailProduct",
   async (payload, thunkAPI) => {
-    console.log("djaosdifjaoisdjfoaisdjf");
     try {
       const data = await axios.get(
-        `http://3.34.98.245/api/product/id/${payload}`
+        `http://54.180.2.97/api/product/id/${payload}`
       );
-      console.log(data);
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       throw error;
