@@ -92,7 +92,7 @@
 
 <img src="https://user-images.githubusercontent.com/98306332/186671806-3b3c98b6-fea3-4f7f-a5a6-97d24070a072.png" width="600"/><br>
 
-- 수정할때, 수정한 내용을 백업 시켜 <br>
+- 수정 페이지입니다. <br>
 
 #### 6.MyPage
 <img src="https://github.com/hh99MiniProject/miniProject/blob/master/likepage.png?raw=true" width="600"/><br>
