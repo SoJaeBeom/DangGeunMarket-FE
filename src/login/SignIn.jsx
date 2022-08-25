@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { setAccessToken } from '../storage/Cookie';
+import danggeunlogo from '../image/danggeunlogo.png';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function SignIn() {
     try {
       let res = await axios({
         method: 'POST',
-        url: 'http://54.180.2.97/user/login',
+        url: 'http://3.35.22.118/user/login',
         data: {
           username,
           password,
@@ -37,6 +38,7 @@ export default function SignIn() {
       axios.defaults.headers.common[
         'Authorization'
       ] = `${res.headers.authorization}`;
+      alert("당근마켓에 오신걸 환영합니다!!");
       return navigate('/');
     } catch (err) {
       throw new Error(err);
@@ -44,8 +46,15 @@ export default function SignIn() {
   };
 
   return (
-    <>
+    
       <StContainer>
+        <StDanggeunimage>
+          <div className="btnStart">
+          <img src={danggeunlogo} onClick={() => {
+                  navigate("/");
+                }} alt="btnStart"/>
+          </div>
+        </StDanggeunimage>
         <StHeader>로그인</StHeader>
         <StIdPwdInput
           id="userid"
@@ -67,15 +76,29 @@ export default function SignIn() {
           <StLoginBtn onClick={login}>로그인</StLoginBtn>
         </StBtnContainer>
       </StContainer>
-    </>
+    
   );
 }
+
+const StDanggeunimage = styled.image`
+  img {
+    width: 130px;
+    height: 130px;
+    background-position: center;
+    background-size: cover;
+    margin-top: 100px;
+  }
+  cursor: pointer;
+  
+`;
 
 const StContainer = styled.div`
   width: 340px;
   margin: 0px auto;
   letter-spacing: -0.6px;
   margin-bottom: 5px;
+  text-align: center;
+  
 `;
 
 const StHeader = styled.div`
@@ -84,6 +107,7 @@ const StHeader = styled.div`
   line-height: 20px;
   text-align: center;
   color: #fa6616;
+  margin-top: 50px;
 `;
 
 const StIdPwdInput = styled.input`

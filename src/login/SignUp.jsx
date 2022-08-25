@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import danggeunlogo from "../image/danggeunlogo.png";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const { username } = useParams();
+
   // 아이디, 닉네임, 지역, 비밀번호, 비밀번호 확인
   const [userId, setUserId] = useState("");
   const [nickname, setNickName] = useState("");
@@ -18,7 +22,10 @@ export default function SignUp() {
   const [passwordError, setPassWordError] = useState(false);
   const [confirmpwdError, setConFirmPwdError] = useState(false);
 
-  const navigate = useNavigate();
+  const [getIdCheck, setGetIdCheck] = useState();
+  const [getNickCheck, setGetNickCheck] = useState();
+
+ 
   
   // 아이디
   const onChangeUserId = (event) => {
@@ -97,6 +104,7 @@ export default function SignUp() {
       !passwordError &&
       !confirmpwdError &&
       !nicknameError 
+      
     ) {
       return true;
     } else {
@@ -108,7 +116,7 @@ export default function SignUp() {
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-          const data = await axios.post("http://54.180.2.97/user/signup", {
+          const data = await axios.post("http://3.35.22.118/user/signup", {
           username: userId,
           nickname,
           location,
@@ -135,27 +143,26 @@ export default function SignUp() {
   // 아이디 중복확인 버튼
   const onIdCheck = async () => {
       try {
-          const data = await axios.post("http://54.180.2.97/user/signup/usercheck", {
-          username: userId,
-        })
-        console.log(data);
-      if (data.data.data === "사용 가능한 아이디입니다") {
-         alert(data.data.data);
-         console.log(data.data.data);
+          const data = await axios.get(`http://3.35.22.118/user/signup/usercheck/${userId}`);
+          setGetIdCheck(data);
+      if (data === "사용 가능한 아이디입니다") {
+         alert({data});
          return;
       }
       alert("이미 사용중인 아이디입니다.");
-      console.log(data.error);
       } catch (error) {
         throw new Error(error);
       }
   };
+  useEffect(() => {
+    onIdCheck();
+  },[]);
+  
   // 닉네임 중복확인 버튼
   const onNickCheck = async () => {
     try {
-        const data = await axios.post("http://54.180.2.97/user/signup/nickcheck", {
-        nickname,
-      })
+        const data = await axios.get(`http://3.35.22.118/user/signup/nickcheck/${nickname}`);
+        setGetNickCheck(data);
     if (data.data.data === '사용 가능한 닉네임입니다') {
        alert(data.data.data);
        return;
@@ -166,9 +173,22 @@ export default function SignUp() {
     }
 };
 
+useEffect(() => {
+  onNickCheck();
+},[]);
+
   return(
    <StLayout> 
-    <StHeader>회원가입</StHeader>
+    <StDanggeunimage>
+      <div className="btnStart">
+        <img src={danggeunlogo} onClick={() => {
+                navigate("/");
+              }} alt="btnStart"/>
+      </div>
+    </StDanggeunimage>
+    <StHeader>
+      회원가입
+    </StHeader>
     <StLine>
       <StHeader1>*</StHeader1> 
       필수입력사항
@@ -187,7 +207,7 @@ export default function SignUp() {
         
       {userIdError ? (
       <>
-      <StInput 
+      <StIdNickInput 
         id="userId_error" 
         placeholder="아이디를 입력해주세요" 
         type="text" 
@@ -197,7 +217,7 @@ export default function SignUp() {
         <ErrorMessage>사용자 ID는 4자 이상, 12자 이하 영문 또는 숫자를 포함해주세요.</ErrorMessage>
         </>
       ) : (
-        <StInput
+        <StIdNickInput
           id="userId"
           placeholder="아이디를 입력해주세요" 
           type="text"
@@ -225,7 +245,7 @@ export default function SignUp() {
         {/* 닉네임 에러 */}
       {nicknameError ? (
       <>
-      <StInput 
+      <StIdNickInput 
         id="nickname" 
         placeholder="닉네임을 입력해주세요" 
         type="text" 
@@ -235,7 +255,7 @@ export default function SignUp() {
         <ErrorMessage>닉네임은 2자 이상, 8자 이하 모든 문자 사용이 가능합니다.</ErrorMessage>
         </>
       ) : (
-      <StInput  
+      <StIdNickInput  
       id="nickname" 
       placeholder="닉네임을 입력해주세요" 
       value={nickname}
@@ -261,17 +281,17 @@ export default function SignUp() {
         {/* 지역 에러 */}
       {locationError ? (
       <>
-      <StInput 
+      <StLoPwCfInput 
         id="location" 
         placeholder="ex) 서울특별시" 
         type="text" 
         value={location}
         onChange={onChangeLoCation}
         />
-        <ErrorMessage>지역은 5자 이상 한글만 사용 가능합니다.</ErrorMessage>
+        <LoPwCfErrorMessage>지역은 5자 이상 한글만 사용 가능합니다.</LoPwCfErrorMessage>
         </>
       ) : (
-      <StInput 
+      <StLoPwCfInput 
       id="location" 
       placeholder="ex) 서울특별시"
       type="text" 
@@ -295,17 +315,17 @@ export default function SignUp() {
         {/* 비밀번호 에러 */}
       {passwordError ? (
       <>
-      <StInput 
+      <StLoPwCfInput 
       id="password_error"  
       placeholder="비밀번호를 입력해주세요" 
       type="password" 
       value={password}
       onChange={onChangePassWord}
       /> 
-      <ErrorMessage>비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를 포함해주세요.</ErrorMessage>
+      <LoPwCfErrorMessage>비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를 포함해주세요.</LoPwCfErrorMessage>
       </>
       ) : (
-      <StInput 
+      <StLoPwCfInput 
       id="password"  
       placeholder="비밀번호를 입력해주세요" 
       type="password" 
@@ -320,8 +340,10 @@ export default function SignUp() {
       <StIdForm>
         <StIdBox>
           <StIdLabel>
-            비밀번호 확인
+            비밀번호 
+            <div>확인
             <StHeader1>*</StHeader1>
+            </div>
           </StIdLabel>
         </StIdBox>
       </StIdForm>
@@ -329,17 +351,17 @@ export default function SignUp() {
         {/* 비밀번호 재확인 에러 */}
       {confirmpwdError ? (
       <>
-      <StInput 
+      <StLoPwCfInput 
       id="confirmpwd_error" 
       placeholder="비밀번호를 한번 더 입력해주세요" 
       value={confirmpwd}
       type="password"
       onChange={onChangeConFirmPwd}
       /> 
-      <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+      <LoPwCfErrorMessage>비밀번호가 일치하지 않습니다.</LoPwCfErrorMessage>
       </>
     ) : (
-      <StInput
+      <StLoPwCfInput
       id="confirmpwd" 
       placeholder="비밀번호를 한번 더 입력해주세요" 
       value={confirmpwd}
@@ -350,28 +372,40 @@ export default function SignUp() {
       </StInputForm>
     </StListContainer>
       
-    <StSignUpbtn 
-    type="submit" 
-    width="240" 
-    radius="3" 
-    onClick={onSubmitHandler}>
-      회원가입하기
-    </StSignUpbtn>
+    <StSignUpContainer>
+      <StSignUpbtn
+      type="submit"
+      onClick={onSubmitHandler}>
+        회원가입하기
+      </StSignUpbtn>
+    </StSignUpContainer>
     <StLine></StLine>
   </StLayout>
   );
 }
 
-
+const StDanggeunimage = styled.image`
+  img {
+    width: 130px;
+    height: 130px;
+    background-position: center;
+    background-size: cover;
+    margin-top: 30px;
+  }
+  cursor: pointer;
+  
+`;
 
 const StHeader = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 28px;
   line-height: 35px;
-  font-weight: 500;
+  font-weight: 800;
   text-align: center;
   letter-spacing: -1px;
   color: #ff7e36;
+  margin-top: 50px;
+
 `;
 
 const StLine = styled.div`
@@ -398,6 +432,8 @@ const StLayout = styled.div`
   width: 640px;
   margin: 0px auto;
   box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const StListContainer = styled.div`
@@ -434,10 +470,10 @@ const StIdLabel = styled.label`
 const StInputForm = styled.div`
   // position: relative;
   //   height: 48px;
-  width: 150%;
+  width: 160%;
 `;
 
-const StInput = styled.input`
+const StIdNickInput = styled.input`
   // flex: 1 1 0%;
   // padding-bottom: 0px;
   // position: relative;
@@ -457,12 +493,31 @@ const StInput = styled.input`
     
 `;
 
+const StLoPwCfInput = styled.input`
+  height: 48px;
+  width: 60%;
+  height: 46px;
+  padding: 0px 11px 1px 15px;
+  border-radius: 4px;
+  border: 1px solid rgb(221, 221, 221);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgb(51, 51, 51);
+  box-sizing: border-box;
+  bottom: 20px;
+  border-right-width: ;
+  margin-right: 125px;
+`;
+
+
+
 const StIdBtn = styled.button`
-width: 250px;
+    width: 250px;
     margin-left: 8px;
-height: 44px;
-// border-radius: 3px;
-display: block;
+    height: 44px;
+  // border-radius: 3px;
+    display: block;
     padding: 0px 10px;
     text-align: center;
     overflow: hidden;
@@ -480,10 +535,7 @@ display: block;
 `;    
 
 const StSignUpbtn = styled.button`
-  // display: block;
   padding: 0px 10px;
-  // text-align: center;
-  // overflow: hidden;
   width: 240px;
   height: 56px;
   border-radius: 3px;
@@ -494,6 +546,13 @@ const StSignUpbtn = styled.button`
   font-size: 16px;
   font-weight: 550;
   cursor: pointer;
+  text-align: center;
+  display: block;
+`;
+
+const StSignUpContainer = styled.div`
+  justify-content: center;
+  display: flex;
 `;
 
 const ErrorMessage = styled.div`
@@ -501,3 +560,12 @@ const ErrorMessage = styled.div`
   font-size: 14px;
   font-weight: 530;
 `;
+
+const LoPwCfErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  font-weight: 530;
+  margin-right: 25%;
+`;
+
+
