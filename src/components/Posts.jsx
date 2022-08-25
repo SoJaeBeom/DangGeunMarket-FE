@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import heart from '../image/heart.svg';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import heart from "../image/heart.svg";
 
 export default function Posts({ product }) {
+  if (product.imgProductList.length === 0) {
+    product.imgProductList = [{ imgUrl: "default이미지" }];
+  }
+
   return (
     <PostsBox>
       <Link to={`/detail/${product.id}`}>
@@ -57,7 +61,7 @@ const PostsDescInfoSection = styled.div`
 `;
 const PostsDescTitle = styled.span`
   display: block;
-  font-family: 'a11';
+  font-family: "a11";
   color: #212529;
   font-size: 16px;
   line-height: 18px;
@@ -85,12 +89,12 @@ const PostsDescLike = styled.img`
   width: 10px;
   padding-top: 5px;
 
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 12px;
 `;
 
 const PostsDescLikeText = styled.span`
-  font-family: 'a11';
+  font-family: "a11";
   font-size: 13px;
   padding-left: 5px;
 `;
