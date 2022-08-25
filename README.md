@@ -1,6 +1,6 @@
 # 🥕당근마켓 클론코딩 (Carrot Market in the Clones)
 
-![rm.png](https://user-images.githubusercontent.com/98306332/186670019-3f3cfe11-da7a-4d92-8061-0f4412bd37d5.png)
+![rm.png](https://user-images.githubusercontent.com/98306332/186670444-b04d97c1-f967-409b-99d5-d1a7aa3f2e6a.png)
 
 
 
