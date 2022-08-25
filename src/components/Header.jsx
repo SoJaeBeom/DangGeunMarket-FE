@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import HeaderLogo from "./HeaderLogo";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import HeaderLogo from './HeaderLogo';
+import { useNavigate } from 'react-router-dom';
 import {
   getCookieToken,
   removeCookieToken,
   removeLocation,
   removeNickname,
-} from "../storage/Cookie";
+} from '../storage/Cookie';
 
 export default function Header() {
   const cookie = getCookieToken();
@@ -14,7 +14,7 @@ export default function Header() {
     removeCookieToken();
     removeNickname();
     removeLocation();
-    window.location.href = "/";
+    window.location.href = '/';
   };
   const navigate = useNavigate();
 
@@ -49,21 +49,21 @@ export default function Header() {
           <TextBox>
             <Transaction
               onClick={() => {
-                navigate("/posts");
+                navigate('/posts');
               }}
             >
               중고거래
             </Transaction>
             <Life
               onClick={() => {
-                alert("준비중 입니다.");
+                alert('준비중 입니다.');
               }}
             >
               동네 생활
             </Life>
             <ProductAdd
               onClick={() => {
-                navigate("/add");
+                navigate('/add');
               }}
             >
               상품 등록
@@ -77,28 +77,34 @@ export default function Header() {
             로그아웃
           </LogoutButton>
 
-          <Chatting>채팅하기</Chatting>
+          <Chatting
+            onClick={() => {
+              navigate('/chatlist');
+            }}
+          >
+            채팅하기
+          </Chatting>
         </>
       ) : (
         <>
           <TextBox>
             <Transaction
               onClick={() => {
-                navigate("/posts");
+                navigate('/posts');
               }}
             >
               중고거래
             </Transaction>
             <Life
               onClick={() => {
-                alert("준비중 입니다.");
+                alert('준비중 입니다.');
               }}
             >
               동네 생활
             </Life>
             <ProductAdd
               onClick={() => {
-                cookie !== undefined ? navigate("/add") : navigate("/signin");
+                cookie !== undefined ? navigate('/add') : navigate('/signin');
               }}
             >
               상품 등록
@@ -107,14 +113,14 @@ export default function Header() {
           {/* navigate('/add'); */}
           <LoginButton
             onClick={() => {
-              navigate("/signin");
+              navigate('/signin');
             }}
           >
             로그인
           </LoginButton>
           <Signup
             onClick={() => {
-              navigate("/signup");
+              navigate('/signup');
             }}
           >
             회원가입
@@ -147,7 +153,7 @@ const TextBox = styled.div`
 `;
 
 const Transaction = styled.span`
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 18px;
   font-weight: 700;
   margin-left: 15px;
@@ -160,7 +166,7 @@ const Transaction = styled.span`
 `;
 
 const ProductAdd = styled.span`
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
@@ -172,7 +178,7 @@ const ProductAdd = styled.span`
 `;
 
 const Life = styled.span`
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
@@ -192,7 +198,7 @@ const LoginButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 16px;
   font-weight: 600;
 
@@ -209,7 +215,7 @@ const Signup = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 16px;
   font-weight: 600;
   &:hover {
@@ -225,7 +231,7 @@ const Chatting = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 16px;
   font-weight: 600;
   &:hover {
@@ -242,7 +248,7 @@ const LogoutButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 16px;
   font-weight: 600;
   &:hover {

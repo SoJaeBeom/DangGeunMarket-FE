@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { getCookieToken } from "../../storage/Cookie";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { getCookieToken } from '../../storage/Cookie';
 
 const initialState = {
   detailProduct: {},
@@ -12,7 +12,7 @@ const initialState = {
 const cookie = getCookieToken();
 
 export const __getDetailProduct = createAsyncThunk(
-  "detailProduct/__getDetailProduct",
+  'detailProduct/__getDetailProduct',
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
@@ -32,17 +32,17 @@ export const __getDetailProduct = createAsyncThunk(
 );
 
 export const __postDetailProduct = createAsyncThunk(
-  "detailProduct/__postDetailProduct",
+  'detailProduct/__postDetailProduct',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://3.35.22.118/api/product", payload, {
+      const data = await axios.post('http://3.35.22.118/api/product', payload, {
         headers: {
           Authorization: cookie,
         },
       });
       console.log(data);
-      window.alert("상품이 등록 되었습니다.");
-      document.location.href = "/posts";
+      window.alert('상품이 등록 되었습니다.');
+      document.location.href = '/posts';
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -51,7 +51,7 @@ export const __postDetailProduct = createAsyncThunk(
 );
 
 export const __deleteDetailProduct = createAsyncThunk(
-  "detailProduct/__deleteDetailProduct",
+  'detailProduct/__deleteDetailProduct',
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
@@ -64,17 +64,17 @@ export const __deleteDetailProduct = createAsyncThunk(
         }
       );
       console.log(data);
-      window.alert("삭제되었습니다.");
+      window.alert('삭제되었습니다.');
       return thunkAPI.fulfillWithValue(data.payload);
     } catch (error) {
-      window.alert("삭제에러!");
+      window.alert('삭제에러!');
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
 export const __editDetailProduct = createAsyncThunk(
-  "detailProduct/__editDetailProduct",
+  'detailProduct/__editDetailProduct',
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
@@ -93,7 +93,7 @@ export const __editDetailProduct = createAsyncThunk(
         }
       );
       console.log(data);
-      window.alert("수정되었습니다.");
+      window.alert('수정되었습니다.');
       return thunkAPI.fulfillWithValue(data.payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -102,7 +102,7 @@ export const __editDetailProduct = createAsyncThunk(
 );
 
 export const detailProductSlice = createSlice({
-  name: "detailProduct",
+  name: 'detailProduct',
   initialState,
   reducers: {},
   extraReducers: {
