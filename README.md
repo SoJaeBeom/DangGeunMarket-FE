@@ -94,10 +94,10 @@
 
 - 수정 페이지입니다. <br>
 
-#### 6.MyPage
-<img src="https://github.com/hh99MiniProject/miniProject/blob/master/likepage.png?raw=true" width="600"/><br>
+#### 8.Chatting
+<img src="https://user-images.githubusercontent.com/98306332/186675822-309ab8f2-52e3-481d-a2e0-48eb4d5514a5.png" width="600"/><br>
 
-- 좋아요를 누른 제품페이지를 확인할 수 있습니다. <br>
+- 1:1 채팅 페이지 입니다. <br>
 
 
 
