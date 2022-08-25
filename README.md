@@ -51,15 +51,15 @@
 
 #### 1⃣Sign up
 
- <img src="https://github.com/hh99MiniProject/miniProject/blob/master/signup.png?raw=true" width="600"/><br>
+ <img src="https://user-images.githubusercontent.com/98306332/186670719-85b947c1-8a24-400c-8df2-870f05d56ec0.png" width="600"/><br>
 -회원가입 페이지입니다.<br>
 -아이디와 닉네임을 체크 편의기능을 추가하였습니다.<br><br> 
 
 #### 2⃣Log in
 
-<!-- <img src="https://github.com/hh99MiniProject/miniProject/blob/master/login.png?raw=true" width="600"/><br>
+ <img src="https://user-images.githubusercontent.com/98306332/186670986-58e48e37-b842-4029-971e-8db83ebc6dad.png" width="600"/><br>
 -로그인 페이지입니다.<br>
--아이디와 비밀번호를 입력받아 로그인합니다.<br><br> -->
+-아이디와 비밀번호를 입력받아 로그인합니다.<br><br>
 
 #### 3⃣Main
 
@@ -70,25 +70,29 @@
 
 #### 4⃣List
 
-<!-- <img src="https://github.com/hh99MiniProject/miniProject/blob/master/detail.png?raw=true" width="600"/><br>
+ <img src="https://user-images.githubusercontent.com/98306332/186671494-3716259d-d30f-43e2-b723-59362ce9a8a1.png" width="600"/><br>
 -등록된 게시글 페이지입니다.<br>
 -해당 게시글 작성자만 게시글을 작성할 수 있습니다.<br>
--해당 댓글도 작성자만 댓글을 작성할 수 있습니다.<br><br> -->
+-해당 댓글도 작성자만 댓글을 작성할 수 있습니다.<br><br>
 
 #### 5⃣Detail
-<!-- 
-<img src="https://github.com/hh99MiniProject/miniProject/blob/master/post.png?raw=true" width="600"/><br>
-- 제품등록 페이지입니다.<br> -->
+
+<img src="https://user-images.githubusercontent.com/98306332/186671592-48754643-de04-4682-941a-8e5fcadb7fc8.png" width="600"/><br>
+- 제품등록 페이지입니다.<br> 
 
 #### 6⃣Post
 
 
 #### 7⃣Put
 
-<!-- #### 6.MyPage
+<img src="https://user-images.githubusercontent.com/98306332/186671806-3b3c98b6-fea3-4f7f-a5a6-97d24070a072.png" width="600"/><br>
+
+- 좋아요를 누른 제품페이지를 확인할 수 있습니다. <br>
+
+#### 6.MyPage
 <img src="https://github.com/hh99MiniProject/miniProject/blob/master/likepage.png?raw=true" width="600"/><br>
 
-- 좋아요를 누른 제품페이지를 확인할 수 있습니다. <br> -->
+- 좋아요를 누른 제품페이지를 확인할 수 있습니다. <br>
 
 
 
