@@ -8,7 +8,6 @@ export default function Bulletins({ bulletin }) {
   const navigate = useNavigate();
   return (
     <Container>
-      {/* <Link to={`/bulletindetail/${bulletin.id}`}></Link> */}
       <PostsImageBox>
         <PostsImage
           src={photo}

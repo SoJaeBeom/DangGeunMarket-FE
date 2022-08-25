@@ -18,29 +18,6 @@ export default function Header() {
   };
   const navigate = useNavigate();
 
-  // const moveToPages = (event) => {
-  //   switch (event.target.id) {
-  //     case 'trade':
-  //       navigate('/posts');
-  //       break;
-
-  //     case 'login':
-  //       navigate('/posts');
-  //       break;
-
-  //     case 'signup':
-  //       navigate('/posts');
-  //       break;
-
-  //     case 'chat':
-  //       navigate('/chat');
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // };
-
   return (
     <HeaderContainer>
       <HeaderLogo />
@@ -56,7 +33,7 @@ export default function Header() {
             </Transaction>
             <Life
               onClick={() => {
-                alert('준비중 입니다.');
+                navigate('/bulletin');
               }}
             >
               동네 생활
@@ -97,7 +74,7 @@ export default function Header() {
             </Transaction>
             <Life
               onClick={() => {
-                alert('준비중 입니다.');
+                navigate('/bulletin');
               }}
             >
               동네 생활

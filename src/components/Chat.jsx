@@ -1,21 +1,20 @@
-import { Stomp } from "@stomp/stompjs";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import SockJS from "sockjs-client";
-import { getCookieToken, getNickname } from "../storage/Cookie";
-import xicon from "../image/xicon.png";
-import back from "../image/back.svg";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Stomp } from '@stomp/stompjs';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import SockJS from 'sockjs-client';
+import { getCookieToken, getNickname } from '../storage/Cookie';
+import xicon from '../image/xicon.png';
+import back from '../image/back.svg';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function Chat() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { detailProduct } = useSelector((state) => state.detailProduct);
   const roomId = useSelector((state) => state.chatSlice);
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
-  console.log("data is :: ", detailProduct, roomId);
 
   const config = {
     Authorization: getCookieToken(),
@@ -27,24 +26,13 @@ export default function Chat() {
     },
   };
 
-  const socket = new SockJS("http://3.35.22.118/ws");
+  const socket = new SockJS('http://3.35.22.118/ws');
   const stompClient = Stomp.over(socket);
-
-  // console.log("socket is ::", socket);
-  // console.log("stompClient is ::", stompClient);
 
   useEffect(() => {
     stompConnect();
-    // return () => {
-    //   stompDisConnect();
-    // };
   });
 
-  // useEffect(() => {
-  //   getMessage();
-  // }, [returnMessage]);
-
-  // 웹소켓 연결, 구독
   const stompConnect = () => {
     try {
       stompClient.connect(
@@ -54,35 +42,18 @@ export default function Chat() {
             `/sub/chat/room/${roomId}`,
             (data) => {
               const returnMessage = JSON.parse(data.body);
-              console.log(returnMessage);
+
               setMessageList(returnMessage.message);
             },
             config
           );
         },
-        () => {
-          console.log("failed");
-        }
+        () => {}
       );
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
-
-  // // 웹소켓 연결 해제, 구독 해제
-  // const stompDisConnect = () => {
-  //   console.log("stompDisConnect");
-  //   try {
-  //     // stompClient.debug = null;
-  //     stompClient.disconnect(() => {
-  //       stompClient.unsubscribe("sub-0");
-  //     }, config);
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw error;
-  //   }
-  // };
 
   const nickname = getNickname();
   const getMessage = async () => {
@@ -90,11 +61,7 @@ export default function Chat() {
       `http://3.35.22.118/chat/chatMessage/${nickname}/${detailProduct.id}`,
       configHttp
     );
-    // const data = await axios.get(
-    //   `http://3.35.22.118/chat/chatMessage/당근이/16`,
-    //   configHttp
-    // );
-    console.log(data.data.data);
+
     if (data.data.data.length === 0) {
       setMessageList([]);
     } else {
@@ -108,8 +75,8 @@ export default function Chat() {
       nickname,
       message,
     };
-    //예시 - 데이터 보낼때 json형식을 맞추어 보낸다.
-    stompClient.send("/pub/chat/message", config, JSON.stringify(data));
+
+    stompClient.send('/pub/chat/message', config, JSON.stringify(data));
     getMessage();
   };
 
@@ -117,13 +84,7 @@ export default function Chat() {
     setMessage(event.target.value);
   };
 
-  // const listReal = messageList.map((v, i) => {
-  //   console.log(v.message);
-  //   return <div>{v.message}</div>;
-  // });
-
   const lis = messageList.map((value, index) => {
-    console.log("aaaaaa", value.message);
     return value.message;
   });
 
@@ -142,7 +103,7 @@ export default function Chat() {
           <AddButton onClick={sendMessage}>전송</AddButton>
         </InputBox>
         <TextBox>
-          <MsgDiv>{lis + "\n"}</MsgDiv>
+          <MsgDiv>{lis + '\n'}</MsgDiv>
         </TextBox>
       </Box>
     </Container>
@@ -191,9 +152,8 @@ const Exitimg = styled.div`
 `;
 
 const InputBox = styled.div`
-  width: 576px;
+  width: 635px;
   height: 80px;
-  background: green;
   margin: auto;
   display: flex;
   margin-top: 89px;
@@ -205,7 +165,7 @@ const InputBox = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 578px;
+  width: 635px;
   height: 527px;
   background: #f26944;
   margin: auto;
@@ -223,20 +183,20 @@ const ChatInput = styled.textarea`
   resize: none;
   overflow: hidden;
 
-  font-family: "a11";
+  font-family: 'a11';
   font-weight: 600;
   font-size: 20px;
 `;
 
 const AddButton = styled.div`
-  width: 130px;
+  width: 185px;
   height: 80px;
   background: #148c75;
   text-align: center;
   padding-top: 25px;
   box-sizing: border-box;
 
-  font-family: "DX국민";
+  font-family: 'DX국민';
   font-weight: 800;
   font-size: 25px;
   cursor: pointer;

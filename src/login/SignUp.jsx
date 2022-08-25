@@ -1,19 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
-import danggeunlogo from "../image/danggeunlogo.png";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import danggeunlogo from '../image/danggeunlogo.png';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const { username } = useParams();
 
   // 아이디, 닉네임, 지역, 비밀번호, 비밀번호 확인
-  const [userId, setUserId] = useState("");
-  const [nickname, setNickName] = useState("");
-  const [location, setLoCation] = useState("");
-  const [password, setPassWord] = useState("");
-  const [confirmpwd, setConFirmPwd] = useState("");
+  const [userId, setUserId] = useState('');
+  const [nickname, setNickName] = useState('');
+  const [location, setLoCation] = useState('');
+  const [password, setPassWord] = useState('');
+  const [confirmpwd, setConFirmPwd] = useState('');
 
   // 오류메시지 상태
   const [userIdError, setUserIdError] = useState(false);
@@ -21,7 +21,6 @@ export default function SignUp() {
   const [locationError, setLoCationError] = useState(false);
   const [passwordError, setPassWordError] = useState(false);
   const [confirmpwdError, setConFirmPwdError] = useState(false);
-
 
   const [getIdCheck, setGetIdCheck] = useState();
   const [getNickCheck, setGetNickCheck] = useState();
@@ -36,7 +35,6 @@ export default function SignUp() {
     }
     setUserId(event.target.value);
   };
-  console.log();
 
   // 닉네임
   const onChangeNickName = (event) => {
@@ -102,7 +100,7 @@ export default function SignUp() {
       !userIdError &&
       !passwordError &&
       !confirmpwdError &&
-      !nicknameError 
+      !nicknameError
     ) {
       return true;
     } else {
@@ -113,270 +111,283 @@ export default function SignUp() {
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        const data = await axios.post("http://3.35.22.118/user/signup", {
+        const data = await axios.post('http://3.35.22.118/user/signup', {
           username: userId,
           nickname,
           location,
           password,
         });
-        console.log(data);
         alert(data.data.data); // 데이터 안에 데이터 안에 데이터 값
-        setUserId("");
-        setPassWord("");
-        setConFirmPwd("");
-        setNickName("");
-        setLoCation("");
-        navigate("/signin");
+        setUserId('');
+        setPassWord('');
+        setConFirmPwd('');
+        setNickName('');
+        setLoCation('');
+        navigate('/signin');
         return;
       } catch (error) {
         throw new Error(error);
       }
     } else {
-      alert("입력 정보를 다시 확인하세요!!");
+      alert('입력 정보를 다시 확인하세요!!');
     }
   };
   // 아이디 중복확인 버튼
   const onIdCheck = async () => {
-      try {
-          const data = await axios.get(`http://3.35.22.118/user/signup/usercheck/${userId}`);
-          setGetIdCheck(data);
-      if (data === "사용 가능한 아이디입니다") {
-         alert({data});
-         return;
+    try {
+      const data = await axios.get(
+        `http://75.101.245.105/user/signup/usercheck/${userId}`
+      );
+      setGetIdCheck(data);
+      if (data === '사용 가능한 아이디입니다') {
+        alert({ data });
+        return;
       }
-      alert("이미 사용중인 아이디입니다.");
-      } catch (error) {
-        throw new Error(error);
-      }
+      alert('이미 사용중인 아이디입니다.');
+    } catch (error) {
+      throw new Error(error);
+    }
   };
   useEffect(() => {
     onIdCheck();
-  },[]);
-  
+  }, []);
+
   // 닉네임 중복확인 버튼
   const onNickCheck = async () => {
     try {
-
-        const data = await axios.get(`http://3.35.22.118/user/signup/nickcheck/${nickname}`);
-        setGetNickCheck(data);
-    if (data.data.data === '사용 가능한 닉네임입니다') {
-       alert(data.data.data);
-       return;
-    } 
-    alert("이미 사용중인 닉네임입니다.");
+      const data = await axios.get(
+        `http://75.101.245.105/user/signup/nickcheck/${nickname}`
+      );
+      setGetNickCheck(data);
+      if (data.data.data === '사용 가능한 닉네임입니다') {
+        alert(data.data.data);
+        return;
+      }
+      alert('이미 사용중인 닉네임입니다.');
     } catch (error) {
       throw new Error(error);
     }
   };
 
-useEffect(() => {
-  onNickCheck();
-},[]);
+  useEffect(() => {
+    onNickCheck();
+  }, []);
 
-  return(
-   <StLayout> 
-    <StDanggeunimage>
-      <div className="btnStart">
-        <img src={danggeunlogo} onClick={() => {
-                navigate("/");
-              }} alt="btnStart"/>
-      </div>
-    </StDanggeunimage>
-    <StHeader>
-      회원가입
-    </StHeader>
-    <StLine>
-      <StHeader1>*</StHeader1> 
-      필수입력사항
-    </StLine>
-    <StListContainer>
-      <StIdForm>
-        <StIdBox>
-          <StIdLabel>
-            아이디
-            <StHeader1>*</StHeader1>
-          </StIdLabel>
-        </StIdBox>
-      </StIdForm>
-      <StInputForm>
-        {/* 아이디 에러 */}
-        
-      {userIdError ? (
-      <>
-      <StIdNickInput 
-        id="userId_error" 
-        placeholder="아이디를 입력해주세요" 
-        type="text" 
-        value={userId}
-        onChange={onChangeUserId}
-        />
-        <ErrorMessage>사용자 ID는 4자 이상, 12자 이하 영문 또는 숫자를 포함해주세요.</ErrorMessage>
-        </>
-      ) : (
-        <StIdNickInput
-          id="userId"
-          placeholder="아이디를 입력해주세요" 
-          type="text"
-          value={userId}
-          onChange={onChangeUserId}
+  return (
+    <StLayout>
+      <StDanggeunimage>
+        <div className="btnStart">
+          <img
+            src={danggeunlogo}
+            onClick={() => {
+              navigate('/');
+            }}
+            alt="btnStart"
           />
-        )}
-        
-      </StInputForm>
-      <StIdBtn type="button" onClick={onIdCheck}>
-        중복확인
-      </StIdBtn>
-    </StListContainer>
-    
-    <StListContainer>
-      <StIdForm>
-        <StIdBox>
-          <StIdLabel>
-            닉네임
-            <StHeader1>*</StHeader1>
-          </StIdLabel>
-        </StIdBox>
-      </StIdForm>
-      <StInputForm>
-        {/* 닉네임 에러 */}
-      {nicknameError ? (
-      <>
-      <StIdNickInput 
-        id="nickname" 
-        placeholder="닉네임을 입력해주세요" 
-        type="text" 
-        value={nickname}
-        onChange={onChangeNickName}
-        />
-        <ErrorMessage>닉네임은 2자 이상, 8자 이하 모든 문자 사용이 가능합니다.</ErrorMessage>
-        </>
-      ) : (
-      <StIdNickInput  
-      id="nickname" 
-      placeholder="닉네임을 입력해주세요" 
-      value={nickname}
-      onChange={onChangeNickName}
-      /> 
-      )}
-      </StInputForm>
-      <StIdBtn type="button" onClick={onNickCheck}>
-        중복확인
-      </StIdBtn>
-    </StListContainer>
+        </div>
+      </StDanggeunimage>
+      <StHeader>회원가입</StHeader>
+      <StLine>
+        <StHeader1>*</StHeader1>
+        필수입력사항
+      </StLine>
+      <StListContainer>
+        <StIdForm>
+          <StIdBox>
+            <StIdLabel>
+              아이디
+              <StHeader1>*</StHeader1>
+            </StIdLabel>
+          </StIdBox>
+        </StIdForm>
+        <StInputForm>
+          {/* 아이디 에러 */}
 
-    <StListContainer>
-      <StIdForm>
-        <StIdBox>
-          <StIdLabel>
-            지역
-            <StHeader1>*</StHeader1>
-          </StIdLabel>
-        </StIdBox>
-      </StIdForm>
-      <StInputForm>
-        {/* 지역 에러 */}
-      {locationError ? (
-      <>
-      <StLoPwCfInput 
-        id="location" 
-        placeholder="ex) 서울특별시" 
-        type="text" 
-        value={location}
-        onChange={onChangeLoCation}
-        />
-        <LoPwCfErrorMessage>지역은 5자 이상 한글만 사용 가능합니다.</LoPwCfErrorMessage>
-        </>
-      ) : (
-      <StLoPwCfInput 
-      id="location" 
-      placeholder="ex) 서울특별시"
-      type="text" 
-      value={location} 
-      onChange={onChangeLoCation}
-      /> 
-      )}
-      </StInputForm>
-    </StListContainer>
+          {userIdError ? (
+            <>
+              <StIdNickInput
+                id="userId_error"
+                placeholder="아이디를 입력해주세요"
+                type="text"
+                value={userId}
+                onChange={onChangeUserId}
+              />
+              <ErrorMessage>
+                사용자 ID는 4자 이상, 12자 이하 영문 또는 숫자를 포함해주세요.
+              </ErrorMessage>
+            </>
+          ) : (
+            <StIdNickInput
+              id="userId"
+              placeholder="아이디를 입력해주세요"
+              type="text"
+              value={userId}
+              onChange={onChangeUserId}
+            />
+          )}
+        </StInputForm>
+        <StIdBtn type="button" onClick={onIdCheck}>
+          중복확인
+        </StIdBtn>
+      </StListContainer>
 
-    <StListContainer>
-      <StIdForm>
-        <StIdBox>
-          <StIdLabel>
-            비밀번호
-            <StHeader1>*</StHeader1>
-          </StIdLabel>
-        </StIdBox>
-      </StIdForm>
-      <StInputForm>
-        {/* 비밀번호 에러 */}
-      {passwordError ? (
-      <>
-      <StLoPwCfInput 
-      id="password_error"  
-      placeholder="비밀번호를 입력해주세요" 
-      type="password" 
-      value={password}
-      onChange={onChangePassWord}
-      /> 
-      <LoPwCfErrorMessage>비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를 포함해주세요.</LoPwCfErrorMessage>
-      </>
-      ) : (
-      <StLoPwCfInput 
-      id="password"  
-      placeholder="비밀번호를 입력해주세요" 
-      type="password" 
-      value={password}
-      onChange={onChangePassWord}
-      /> 
-      )}
-      </StInputForm>
-    </StListContainer>
+      <StListContainer>
+        <StIdForm>
+          <StIdBox>
+            <StIdLabel>
+              닉네임
+              <StHeader1>*</StHeader1>
+            </StIdLabel>
+          </StIdBox>
+        </StIdForm>
+        <StInputForm>
+          {/* 닉네임 에러 */}
+          {nicknameError ? (
+            <>
+              <StIdNickInput
+                id="nickname"
+                placeholder="닉네임을 입력해주세요"
+                type="text"
+                value={nickname}
+                onChange={onChangeNickName}
+              />
+              <ErrorMessage>
+                닉네임은 2자 이상, 8자 이하 모든 문자 사용이 가능합니다.
+              </ErrorMessage>
+            </>
+          ) : (
+            <StIdNickInput
+              id="nickname"
+              placeholder="닉네임을 입력해주세요"
+              value={nickname}
+              onChange={onChangeNickName}
+            />
+          )}
+        </StInputForm>
+        <StIdBtn type="button" onClick={onNickCheck}>
+          중복확인
+        </StIdBtn>
+      </StListContainer>
 
-    <StListContainer>
-      <StIdForm>
-        <StIdBox>
-          <StIdLabel>
-            비밀번호 
-            <div>확인
-            <StHeader1>*</StHeader1>
-            </div>
-          </StIdLabel>
-        </StIdBox>
-      </StIdForm>
-      <StInputForm>
-        {/* 비밀번호 재확인 에러 */}
-      {confirmpwdError ? (
-      <>
-      <StLoPwCfInput 
-      id="confirmpwd_error" 
-      placeholder="비밀번호를 한번 더 입력해주세요" 
-      value={confirmpwd}
-      type="password"
-      onChange={onChangeConFirmPwd}
-      /> 
-      <LoPwCfErrorMessage>비밀번호가 일치하지 않습니다.</LoPwCfErrorMessage>
-      </>
-    ) : (
-      <StLoPwCfInput
-      id="confirmpwd" 
-      placeholder="비밀번호를 한번 더 입력해주세요" 
-      value={confirmpwd}
-      type="password"
-      onChange={onChangeConFirmPwd}
-      /> 
-    )}
-      </StInputForm>
-    </StListContainer>
-      
-    <StSignUpContainer>
-      <StSignUpbtn
-      type="submit"
-      onClick={onSubmitHandler}>
-        회원가입하기
-      </StSignUpbtn>
-    </StSignUpContainer>
-    <StLine></StLine>
-  </StLayout>
+      <StListContainer>
+        <StIdForm>
+          <StIdBox>
+            <StIdLabel>
+              지역
+              <StHeader1>*</StHeader1>
+            </StIdLabel>
+          </StIdBox>
+        </StIdForm>
+        <StInputForm>
+          {/* 지역 에러 */}
+          {locationError ? (
+            <>
+              <StLoPwCfInput
+                id="location"
+                placeholder="ex) 서울특별시"
+                type="text"
+                value={location}
+                onChange={onChangeLoCation}
+              />
+              <LoPwCfErrorMessage>
+                지역은 5자 이상 한글만 사용 가능합니다.
+              </LoPwCfErrorMessage>
+            </>
+          ) : (
+            <StLoPwCfInput
+              id="location"
+              placeholder="ex) 서울특별시"
+              type="text"
+              value={location}
+              onChange={onChangeLoCation}
+            />
+          )}
+        </StInputForm>
+      </StListContainer>
+
+      <StListContainer>
+        <StIdForm>
+          <StIdBox>
+            <StIdLabel>
+              비밀번호
+              <StHeader1>*</StHeader1>
+            </StIdLabel>
+          </StIdBox>
+        </StIdForm>
+        <StInputForm>
+          {/* 비밀번호 에러 */}
+          {passwordError ? (
+            <>
+              <StLoPwCfInput
+                id="password_error"
+                placeholder="비밀번호를 입력해주세요"
+                type="password"
+                value={password}
+                onChange={onChangePassWord}
+              />
+              <LoPwCfErrorMessage>
+                비밀번호는 4자 이상, 12자 이하 영문,숫자,특수문자를
+                포함해주세요.
+              </LoPwCfErrorMessage>
+            </>
+          ) : (
+            <StLoPwCfInput
+              id="password"
+              placeholder="비밀번호를 입력해주세요"
+              type="password"
+              value={password}
+              onChange={onChangePassWord}
+            />
+          )}
+        </StInputForm>
+      </StListContainer>
+
+      <StListContainer>
+        <StIdForm>
+          <StIdBox>
+            <StIdLabel>
+              비밀번호
+              <div>
+                확인
+                <StHeader1>*</StHeader1>
+              </div>
+            </StIdLabel>
+          </StIdBox>
+        </StIdForm>
+        <StInputForm>
+          {/* 비밀번호 재확인 에러 */}
+          {confirmpwdError ? (
+            <>
+              <StLoPwCfInput
+                id="confirmpwd_error"
+                placeholder="비밀번호를 한번 더 입력해주세요"
+                value={confirmpwd}
+                type="password"
+                onChange={onChangeConFirmPwd}
+              />
+              <LoPwCfErrorMessage>
+                비밀번호가 일치하지 않습니다.
+              </LoPwCfErrorMessage>
+            </>
+          ) : (
+            <StLoPwCfInput
+              id="confirmpwd"
+              placeholder="비밀번호를 한번 더 입력해주세요"
+              value={confirmpwd}
+              type="password"
+              onChange={onChangeConFirmPwd}
+            />
+          )}
+        </StInputForm>
+      </StListContainer>
+
+      <StSignUpContainer>
+        <StSignUpbtn type="submit" onClick={onSubmitHandler}>
+          회원가입하기
+        </StSignUpbtn>
+      </StSignUpContainer>
+      <StLine></StLine>
+    </StLayout>
   );
 }
 
@@ -389,7 +400,6 @@ const StDanggeunimage = styled.image`
     margin-top: 30px;
   }
   cursor: pointer;
-  
 `;
 
 const StHeader = styled.div`
@@ -401,7 +411,6 @@ const StHeader = styled.div`
   letter-spacing: -1px;
   color: #ff7e36;
   margin-top: 50px;
-
 `;
 
 const StLine = styled.div`
@@ -497,33 +506,30 @@ const StLoPwCfInput = styled.input`
   color: rgb(51, 51, 51);
   box-sizing: border-box;
   bottom: 20px;
-  border-right-width: ;
   margin-right: 125px;
 `;
 
-
-
 const StIdBtn = styled.button`
-    width: 250px;
-    margin-left: 8px;
-    height: 44px;
+  width: 250px;
+  margin-left: 8px;
+  height: 44px;
   // border-radius: 3px;
-    display: block;
-    padding: 0px 10px;
-    text-align: center;
-    overflow: hidden;
-    // width: 100%;
-    // height: 52px;
-    border-radius: 6px;
-    color: #fa6616;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #fa6616;;
-    font-weight: 550;
-    font-size: 14px;
-    cursor: pointer;
-    display: block;
-    line-height: 1.15
-`;    
+  display: block;
+  padding: 0px 10px;
+  text-align: center;
+  overflow: hidden;
+  // width: 100%;
+  // height: 52px;
+  border-radius: 6px;
+  color: #fa6616;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #fa6616;
+  font-weight: 550;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  line-height: 1.15;
+`;
 
 const StSignUpbtn = styled.button`
   padding: 0px 10px;
@@ -552,13 +558,9 @@ const ErrorMessage = styled.div`
   font-weight: 530;
 `;
 
-
 const LoPwCfErrorMessage = styled.div`
   color: red;
   font-size: 14px;
   font-weight: 530;
   margin-right: 25%;
 `;
-
-
-

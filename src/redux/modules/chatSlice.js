@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { getCookieToken, getNickname } from "../../storage/Cookie";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { getCookieToken, getNickname } from '../../storage/Cookie';
 
 const initialState = {
   list: [],
@@ -15,17 +15,15 @@ const configHttp = {
   },
 };
 const nickname = getNickname();
-console.log(nickname);
+
 export const __getList = createAsyncThunk(
-  "chat/__getList",
+  'chat/__getList',
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const data = await axios.get(
         `http://3.35.22.118/chat/chatRoom/${nickname}`,
         configHttp
       );
-      console.log("list is ::: ", data.data.data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -34,7 +32,7 @@ export const __getList = createAsyncThunk(
 );
 
 export const chatSlice = createSlice({
-  name: "chat",
+  name: 'chat',
   initialState: {},
   reducers: {
     getChatRoomId: (previousState, action) => {
@@ -44,7 +42,6 @@ export const chatSlice = createSlice({
   },
   extraReducers: {
     [__getList.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.list = action.payload;
     },
   },

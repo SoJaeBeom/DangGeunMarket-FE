@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import Chatlogo from "../image/Chatlogo.png";
-import { useNavigate } from "react-router-dom";
-import photo from "../image/photo.svg";
-import bulletinBanner from "../image/bulletinBanner.png";
-import search from "../image/search.png";
-import chat from "../image/chat.png";
-import footeriamge from "../image/footerimage.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { __getList } from "../redux/modules/chatSlice";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Chatlogo from '../image/Chatlogo.png';
+import { useNavigate } from 'react-router-dom';
+import photo from '../image/photo.svg';
+import bulletinBanner from '../image/bulletinBanner.png';
+import search from '../image/search.png';
+import chat from '../image/chat.png';
+import footeriamge from '../image/footerimage.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getList } from '../redux/modules/chatSlice';
 
 export default function ChatList() {
   const navigate = useNavigate();
@@ -20,19 +20,16 @@ export default function ChatList() {
   }, [dispatch]);
 
   const lists = state.list?.map((v, i) => {
-    console.log(v.roomId, i);
     return v.roomId;
   });
-  const moveToRoom = () => {
-    console.log("ajjo");
-  };
+  const moveToRoom = () => {};
 
   return (
     <ChatContainer>
       <ChatBox>
         <Chatimage
           onClick={() => {
-            navigate("/");
+            navigate('/');
           }}
         />
         <ChatTextBox>
@@ -64,11 +61,13 @@ export default function ChatList() {
 
 const ChatContainer = styled.div`
   width: 100%;
+  height: 100vh;
   background: #ffa267;
 `;
 
 const ChatBox = styled.div`
   width: 600px;
+  height: 100vh;
   margin: auto;
   background: white;
   border-radius: 30px;
@@ -91,7 +90,7 @@ const ChatTextBox = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 15px;
 
   margin: auto;
@@ -102,7 +101,7 @@ const ChatTitle = styled.div`
   width: 200px;
   height: 30px;
 
-  font-family: "a19";
+  font-family: 'a19';
   font-size: 22px;
   color: #f7902b;
 `;
@@ -157,7 +156,7 @@ const RoomNumber = styled.div`
   margin-top: 25px;
   margin-left: 20px;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 20px;
   color: white;
 `;
@@ -167,7 +166,7 @@ const Footer = styled.div`
   height: 130px;
   border-radius: 30px;
   display: flex;
-  margin-top: 110px;
+  margin-top: 505px;
   background: url(${footeriamge});
   background-position: center;
   background-size: cover;
@@ -180,7 +179,7 @@ const Link = styled.div`
   margin-left: 40px;
   cursor: pointer;
 
-  font-family: "a19";
+  font-family: 'a19';
   font-size: 18px;
   color: #0c7eab;
 `;

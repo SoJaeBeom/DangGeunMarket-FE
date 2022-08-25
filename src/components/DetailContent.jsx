@@ -1,11 +1,11 @@
-import md5 from "md5";
-import styled from "styled-components";
-import { __deleteDetailProduct } from "../redux/modules/detailProductSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken, getNickname } from "../storage/Cookie";
-import { getChatRoomId } from "../redux/modules/chatSlice";
+import md5 from 'md5';
+import styled from 'styled-components';
+import { __deleteDetailProduct } from '../redux/modules/detailProductSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken, getNickname } from '../storage/Cookie';
+import { getChatRoomId } from '../redux/modules/chatSlice';
 
 export default function DetailContent({ detailProduct }) {
   const avatarUrl = `https://www.gravatar.com/avatar/${md5(
@@ -28,40 +28,24 @@ export default function DetailContent({ detailProduct }) {
     const date = new Date(parseTime);
     const returnDate =
       date.getFullYear() +
-      "/" +
+      '/' +
       (date.getMonth() + 1) +
-      "/" +
+      '/' +
       date.getDate() +
-      " " +
+      ' ' +
       date.getHours() +
-      ":" +
+      ':' +
       date.getMinutes();
     return returnDate;
   };
 
   const deleteProduct = () => {
     dispatch(__deleteDetailProduct(id));
-    console.log(id);
   };
 
   const checkRoom = async () => {
-    // 방 존재 유무 확인
-    // /chat/check :: get
-    // req : url 로 {nickname, productId}
-    // res : {success , data}
-
-    // 방이 존재 : success = true
-    // /chat/chatMessage :: get
-    // req : url 로 {nickname, productId}
-    // res : {success, data -> nickname, roomId, message}
-
-    // 방이 없음 : success = false
-    // /chat/chatRoom :: post
-    // req : body 로 {nickname, productId}
-    // res : {success, roomId}
-
     const nickname = getNickname();
-    console.log(nickname);
+
     try {
       await axios
         .get(
@@ -69,24 +53,21 @@ export default function DetailContent({ detailProduct }) {
           config
         )
         .then(async (res) => {
-          console.log(res);
           if (res.data.success === false) {
-            console.log("false!!!");
             const data = await axios.post(
-              "http://3.35.22.118/chat/chatRoom",
+              'http://3.35.22.118/chat/chatRoom',
               {
                 nickname: nickname,
                 productId: detailProduct.id,
               },
               config
             );
-            console.log(data.data.data.roomId);
+
             dispatch(getChatRoomId({ roomId: data.data.data.roomId }));
           }
         });
-      navigate("/chat");
+      navigate('/chat');
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -119,7 +100,7 @@ export default function DetailContent({ detailProduct }) {
         <DetailContentDescContent>
           {detailProduct.content}
         </DetailContentDescContent>
-        <DetailContentDescEtc>관심 1 ∙ 채팅 0 ∙ 조회 80</DetailContentDescEtc>
+        <DetailContentDescEtc>관심 23 ∙ 채팅 0 ∙ 조회 92</DetailContentDescEtc>
 
         <Link to={`/edit/${detailProduct.id}`}>
           {nickname === detailProduct.nickname ? (
@@ -129,9 +110,9 @@ export default function DetailContent({ detailProduct }) {
         {nickname === detailProduct.nickname ? (
           <DetailContentButton
             onClick={() => {
-              if (window.confirm("정말 삭제하시나요?")) {
+              if (window.confirm('정말 삭제하시나요?')) {
                 deleteProduct();
-                navigate("/posts");
+                navigate('/posts');
               }
             }}
           >
@@ -261,7 +242,7 @@ const DetailContentCatting = styled.button`
   border: none;
   border-radius: 7px;
 
-  font-family: "a15";
+  font-family: 'a15';
   color: white;
   cursor: pointer;
 `;
@@ -275,7 +256,7 @@ const DetailContentButton = styled.button`
   background: #ff8a3b;
   border-radius: 7px;
 
-  font-family: "a15";
+  font-family: 'a15';
   color: white;
   cursor: pointer;
 `;

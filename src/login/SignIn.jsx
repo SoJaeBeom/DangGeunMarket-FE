@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,12 +5,11 @@ import axios from 'axios';
 import { setAccessToken, setLocation, setNickname } from '../storage/Cookie';
 import danggeunlogo from '../image/danggeunlogo.png';
 
-
 export default function SignIn() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const { username, password } = loginInfo;
@@ -35,15 +33,14 @@ export default function SignIn() {
         },
         withCredentials: true,
       });
-      console.log(res.data.data.nickname);
       setLocation(res.data.data.location);
       setNickname(res.data.data.nickname);
       setAccessToken(res.headers.access_token);
 
       axios.defaults.headers.common[
-        "Authorization"
+        'Authorization'
       ] = `${res.headers.authorization}`;
-      alert("당근마켓에 오신걸 환영합니다!!");
+      alert('당근마켓에 오신걸 환영합니다!!');
       return navigate('/');
     } catch (err) {
       throw new Error(err);
@@ -51,37 +48,39 @@ export default function SignIn() {
   };
 
   return (
-    
-      <StContainer>
-        <StDanggeunimage>
-          <div className="btnStart">
-          <img src={danggeunlogo} onClick={() => {
-                  navigate("/");
-                }} alt="btnStart"/>
-          </div>
-        </StDanggeunimage>
-        <StHeader>로그인</StHeader>
-        <StIdPwdInput
-          id="userid"
-          placeholder="아이디를 입력해주세요"
-          type="text"
-          value={username}
-          name="username"
-          onChange={onChangeHandler}
-        />
-        <StIdPwdInput
-          id="password"
-          placeholder="비밀번호를 입력해주세요"
-          type="password"
-          value={password}
-          name="password"
-          onChange={onChangeHandler}
-        />
-        <StBtnContainer>
-          <StLoginBtn onClick={login}>로그인</StLoginBtn>
-        </StBtnContainer>
-      </StContainer>
-    
+    <StContainer>
+      <StDanggeunimage>
+        <div className="btnStart">
+          <img
+            src={danggeunlogo}
+            onClick={() => {
+              navigate('/');
+            }}
+            alt="btnStart"
+          />
+        </div>
+      </StDanggeunimage>
+      <StHeader>로그인</StHeader>
+      <StIdPwdInput
+        id="userid"
+        placeholder="아이디를 입력해주세요"
+        type="text"
+        value={username}
+        name="username"
+        onChange={onChangeHandler}
+      />
+      <StIdPwdInput
+        id="password"
+        placeholder="비밀번호를 입력해주세요"
+        type="password"
+        value={password}
+        name="password"
+        onChange={onChangeHandler}
+      />
+      <StBtnContainer>
+        <StLoginBtn onClick={login}>로그인</StLoginBtn>
+      </StBtnContainer>
+    </StContainer>
   );
 }
 
@@ -94,7 +93,6 @@ const StDanggeunimage = styled.image`
     margin-top: 100px;
   }
   cursor: pointer;
-  
 `;
 
 const StContainer = styled.div`
@@ -103,7 +101,6 @@ const StContainer = styled.div`
   letter-spacing: -0.6px;
   margin-bottom: 5px;
   text-align: center;
-  
 `;
 
 const StHeader = styled.div`

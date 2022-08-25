@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import addBanner from "../image/addBanner.svg";
-import imageBox from "../image/imageBox.svg";
-import deleteimage from "../image/deleteimage.png";
-import inputbox from "../image/inputbox.svg";
-import descinput from "../image/descinput.svg";
-import addbutton from "../image/addbutton.png";
-import { useDispatch } from "react-redux";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../shared/firebase";
-import { __postDetailProduct } from "../redux/modules/detailProductSlice";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import addBanner from '../image/addBanner.svg';
+import imageBox from '../image/imageBox.svg';
+import deleteimage from '../image/deleteimage.png';
+import inputbox from '../image/inputbox.svg';
+import descinput from '../image/descinput.svg';
+import addbutton from '../image/addbutton.png';
+import { useDispatch } from 'react-redux';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../shared/firebase';
+import { __postDetailProduct } from '../redux/modules/detailProductSlice';
 
 export default function AddPosts() {
   const [imgProductList, setImgProductList] = useState([]);
@@ -29,37 +29,28 @@ export default function AddPosts() {
     };
 
     dispatch(__postDetailProduct(product));
-    console.log(product);
   };
-  // firebase
   const handleAddImages = async (event) => {
     const imageLists = event.target.files;
     const uploaded_file = await uploadBytes(
       ref(storage, `images/${event.target.files[0].name}`),
       event.target.files[0]
     );
-    console.log("fire base push", uploaded_file);
 
     const url = await getDownloadURL(uploaded_file.ref);
     setImgProductList(url);
-    console.log(url);
 
     let imageUrlLists = [...imgProductList];
-    console.log(imgProductList);
     for (let i = 0; i < imageLists.length; i++) {
       const imgUrl = url;
       imageUrlLists.push({ imgUrl });
-      console.log(imageUrlLists);
     }
-    //최대 이미지 저장수
     if (imageUrlLists.length > 5) {
       imageUrlLists = imageUrlLists.slice(0, 5);
     }
     setImgProductList(imageUrlLists);
-    console.log("이미지 리스트로 들어옴 ", imageUrlLists);
   };
 
-  // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setImgProductList(imgProductList.filter((_, index) => index !== id));
   };
@@ -136,13 +127,6 @@ export default function AddPosts() {
   );
 }
 
-// onClick={() => {
-//   if (window.confirm('상품등록을 하시겠어요?')) {
-//     postProduct();
-//     // navigate('/');
-//   }
-// }}
-
 const AddContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -166,7 +150,7 @@ const Appstyle = styled.div`
     vertical-align: middle;
     cursor: pointer;
   }
-  input[type="file"] {
+  input[type='file'] {
     position: absolute;
     width: 0;
     height: 0;
@@ -180,7 +164,6 @@ const Appstyle = styled.div`
 
 const ListContainer = styled.div`
   max-width: 1800px;
-  /* background: url(${({ i }) => (i ? imageBox : null)}); */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -222,7 +205,6 @@ const Delete = styled.button`
 const TextBox = styled.div`
   width: 100%;
   height: 600px;
-  /* background: gray; */
   margin: auto;
   margin-top: 50px;
 `;
@@ -258,7 +240,7 @@ const ProductBox2 = styled.div`
 `;
 
 const ProductText = styled.span`
-  font-family: "Bazzi";
+  font-family: 'Bazzi';
   font-size: 30px;
   color: white;
 `;
@@ -274,7 +256,7 @@ const ProductInput = styled.input`
   border-right-width: 0;
   border-bottom-width: 1;
 
-  font-family: "Bazzi";
+  font-family: 'Bazzi';
   font-size: 30px;
   color: white;
 
@@ -296,7 +278,7 @@ const ProductInput2 = styled.textarea`
   resize: none;
   overflow: hidden;
 
-  font-family: "Bazzi";
+  font-family: 'Bazzi';
   font-size: 30px;
   color: white;
 
@@ -323,7 +305,7 @@ const ProductAddButton = styled.button`
   padding-right: 0px;
   margin-bottom: 50px;
   cursor: pointer;
-  font-family: "HSFont";
+  font-family: 'HSFont';
   font-size: 45px;
   color: white;
   &:hover {

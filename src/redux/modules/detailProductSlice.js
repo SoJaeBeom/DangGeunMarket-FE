@@ -23,7 +23,6 @@ export const __getDetailProduct = createAsyncThunk(
           },
         }
       );
-      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       throw error;
@@ -40,7 +39,6 @@ export const __postDetailProduct = createAsyncThunk(
           Authorization: cookie,
         },
       });
-      console.log(data);
       window.alert('상품이 등록 되었습니다.');
       document.location.href = '/posts';
       return thunkAPI.fulfillWithValue(data.data);
@@ -53,7 +51,6 @@ export const __postDetailProduct = createAsyncThunk(
 export const __deleteDetailProduct = createAsyncThunk(
   'detailProduct/__deleteDetailProduct',
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const data = await axios.delete(
         `http://3.35.22.118/api/product/${payload}`,
@@ -63,7 +60,6 @@ export const __deleteDetailProduct = createAsyncThunk(
           },
         }
       );
-      console.log(data);
       window.alert('삭제되었습니다.');
       return thunkAPI.fulfillWithValue(data.payload);
     } catch (error) {
@@ -76,7 +72,6 @@ export const __deleteDetailProduct = createAsyncThunk(
 export const __editDetailProduct = createAsyncThunk(
   'detailProduct/__editDetailProduct',
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const data = await axios.put(
         `http://3.35.22.118/api/product/${payload.id}`,
@@ -92,8 +87,8 @@ export const __editDetailProduct = createAsyncThunk(
           },
         }
       );
-      console.log(data);
       window.alert('수정되었습니다.');
+      document.location.href = '/posts';
       return thunkAPI.fulfillWithValue(data.payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

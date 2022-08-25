@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Posts from "../components/Posts";
-import Grid from "../styles/Grid";
-import Footer from "./Footer";
-import Header from "./Header";
-import { getCookieToken, getLocation } from "../storage/Cookie";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import Posts from '../components/Posts';
+import Grid from '../styles/Grid';
+import Footer from './Footer';
+import Header from './Header';
+import { getCookieToken, getLocation } from '../storage/Cookie';
 
 export default function PostsList() {
   const [productListNew, setProductList] = useState();
@@ -16,7 +16,6 @@ export default function PostsList() {
     },
   };
 
-  console.log(location);
   const getProductList = async () => {
     if (getCookieToken()) {
       try {
@@ -26,15 +25,13 @@ export default function PostsList() {
         );
         setProductList(data.data.data);
       } catch (error) {
-        console.log(error);
         throw error;
       }
     } else {
       try {
-        const data = await axios.get("http://3.35.22.118/api/product");
+        const data = await axios.get('http://3.35.22.118/api/product');
         setProductList(data.data.data);
       } catch (error) {
-        console.log(error);
         throw error;
       }
     }
@@ -52,7 +49,7 @@ export default function PostsList() {
     <PostsContainer>
       <Header />
       <PostsListTitle>
-        중고거래 인기매물 - <p>{location ? location : "전체"}</p>
+        중고거래 인기매물 - <p>{location ? location : '전체'}</p>
       </PostsListTitle>
 
       <PostsListBox>
@@ -74,7 +71,7 @@ const PostsListTitle = styled.div`
   display: flex;
   justify-content: center;
 
-  font-family: "a15";
+  font-family: 'a15';
   font-size: 32px;
   font-weight: 600;
 `;

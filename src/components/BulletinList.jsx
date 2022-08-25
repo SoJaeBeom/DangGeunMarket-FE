@@ -14,7 +14,6 @@ export default function BulletinList() {
       const data = await axios.get('http://54.180.2.97/api/post');
       setBulletin(data.data.data);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -36,7 +35,9 @@ export default function BulletinList() {
       </BulletinTitlebox>
       <BulletinBox>
         <Grid padding="25px" width="900px" margin="0 auto;">
-          {bulletinList}
+          <Bulletins />
+          <Bulletins />
+          <Bulletins />
         </Grid>
       </BulletinBox>
       <Footer />

@@ -38,7 +38,6 @@ export default function EditPosts() {
       content: content,
       imgProductList: imgProductList,
     };
-    console.log(product);
 
     dispatch(__editDetailProduct(product));
   };
@@ -48,35 +47,26 @@ export default function EditPosts() {
       ref(storage, `images/${event.target.files[0].name}`),
       event.target.files[0]
     );
-    console.log('fire base push', uploaded_file);
 
     const url = await getDownloadURL(uploaded_file.ref);
     setImgProductList(url);
-    console.log(url);
 
     let imageUrlLists = [...imgProductList];
-    console.log(imgProductList);
+
     for (let i = 0; i < imageLists.length; i++) {
       const imgUrl = url;
       imageUrlLists.push({ imgUrl });
-      console.log(imageUrlLists);
     }
-    //최대 이미지 저장수
+
     if (imageUrlLists.length > 5) {
       imageUrlLists = imageUrlLists.slice(0, 5);
     }
     setImgProductList(imageUrlLists);
-    console.log('이미지 리스트로 들어옴 ', imageUrlLists);
   };
 
-  // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setImgProductList(imgProductList.filter((_, index) => index !== id));
   };
-
-  // const Change = useCallback((e) => {
-  //   setName(e.target.value);
-  // }, []);
 
   return (
     <AddContainer>
@@ -152,13 +142,6 @@ export default function EditPosts() {
     </AddContainer>
   );
 }
-
-// onClick={() => {
-//   if (window.confirm('상품등록을 하시겠어요?')) {
-//     postProduct();
-//     // navigate('/');
-//   }
-// }}
 
 const AddContainer = styled.div`
   width: 100%;
