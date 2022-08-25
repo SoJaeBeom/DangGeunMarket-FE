@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { __deleteDetailProduct } from "../redux/modules/detailProductSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { getCookieToken, getNickname } from "../storage/Cookie";
+import { getChatRoomId } from "../redux/modules/chatSlice";
 
 export default function DetailContent({ detailProduct }) {
   const avatarUrl = `https://www.gravatar.com/avatar/${md5(
@@ -12,6 +15,13 @@ export default function DetailContent({ detailProduct }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = detailProduct.id;
+  const nickname = getNickname();
+
+  const config = {
+    headers: {
+      Authorization: getCookieToken(),
+    },
+  };
 
   const displayedAt = (paramTime) => {
     const parseTime = Date.parse(paramTime);
@@ -32,6 +42,61 @@ export default function DetailContent({ detailProduct }) {
   const deleteProduct = () => {
     dispatch(__deleteDetailProduct(id));
     console.log(id);
+  };
+
+  const checkRoom = async () => {
+    // 방 존재 유무 확인
+    // /chat/check :: get
+    // req : url 로 {nickname, productId}
+    // res : {success , data}
+
+    // 방이 존재 : success = true
+    // /chat/chatMessage :: get
+    // req : url 로 {nickname, productId}
+    // res : {success, data -> nickname, roomId, message}
+
+    // 방이 없음 : success = false
+    // /chat/chatRoom :: post
+    // req : body 로 {nickname, productId}
+    // res : {success, roomId}
+
+    const nickname = getNickname();
+    console.log(nickname);
+    try {
+      await axios
+        .get(
+          `http://3.35.22.118/chat/check/${nickname}/${detailProduct.id}`,
+          config
+        )
+        .then(async (res) => {
+          console.log(res);
+          if (res.data.success === false) {
+            console.log("false!!!");
+            const data = await axios.post(
+              "http://3.35.22.118/chat/chatRoom",
+              {
+                nickname: nickname,
+                productId: detailProduct.id,
+              },
+              config
+            );
+            console.log(data.data.data.roomId);
+            dispatch(getChatRoomId({ roomId: data.data.data.roomId }));
+          }
+          // else if (res.data.success === true) {
+          //   console.log("success !!!");
+          //   const data = await axios.get(
+          //     `http://3.35.22.118/chat/chatMessage/${nickname}/${detailProduct.id}`,
+          //     config
+          //   );
+          //   console.log(data);
+          // }
+        });
+      navigate("/chat");
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   };
 
   return (
@@ -65,20 +130,26 @@ export default function DetailContent({ detailProduct }) {
         <DetailContentDescEtc>관심 1 ∙ 채팅 0 ∙ 조회 80</DetailContentDescEtc>
 
         <Link to={`/edit/${detailProduct.id}`}>
-          <DetailContentButton>수정하기</DetailContentButton>
+          {nickname === detailProduct.nickname ? (
+            <DetailContentButton>수정하기</DetailContentButton>
+          ) : null}
         </Link>
-        <DetailContentButton
-          onClick={() => {
-            if (window.confirm("정말 삭제하시나요?")) {
-              deleteProduct();
-              navigate("/posts");
-            }
-          }}
-        >
-          삭제하기
-        </DetailContentButton>
+        {nickname === detailProduct.nickname ? (
+          <DetailContentButton
+            onClick={() => {
+              if (window.confirm("정말 삭제하시나요?")) {
+                deleteProduct();
+                navigate("/posts");
+              }
+            }}
+          >
+            삭제하기
+          </DetailContentButton>
+        ) : null}
 
-        <DetailContentCatting>채팅으로 거래하기</DetailContentCatting>
+        <DetailContentCatting onClick={checkRoom}>
+          채팅으로 거래하기
+        </DetailContentCatting>
       </DetailContentDesc>
     </DetailContentBox>
   );

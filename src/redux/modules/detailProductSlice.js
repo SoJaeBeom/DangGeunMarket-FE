@@ -16,7 +16,7 @@ export const __getDetailProduct = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `http://54.180.2.97/api/product/id/${payload}`,
+        `http://3.35.22.118/api/product/id/${payload}`,
         {
           headers: {
             Authorization: cookie,
@@ -35,7 +35,7 @@ export const __postDetailProduct = createAsyncThunk(
   'detailProduct/__postDetailProduct',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post('http://54.180.2.97/api/product', payload, {
+      const data = await axios.post('http://3.35.22.118/api/product', payload, {
         headers: {
           Authorization: cookie,
         },
@@ -56,7 +56,7 @@ export const __deleteDetailProduct = createAsyncThunk(
     console.log(payload);
     try {
       const data = await axios.delete(
-        `http://54.180.2.97/api/product/${payload}`,
+        `http://3.35.22.118/api/product/${payload}`,
         {
           headers: {
             Authorization: cookie,
@@ -79,7 +79,7 @@ export const __editDetailProduct = createAsyncThunk(
     console.log(payload);
     try {
       const data = await axios.put(
-        `http://54.180.2.97/api/product/${payload.id}`,
+        `http://3.35.22.118/api/product/${payload.id}`,
         {
           name: payload.name,
           price: payload.price,

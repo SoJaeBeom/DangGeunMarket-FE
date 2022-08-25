@@ -22,11 +22,10 @@ export default function SignUp() {
   const [passwordError, setPassWordError] = useState(false);
   const [confirmpwdError, setConFirmPwdError] = useState(false);
 
+
   const [getIdCheck, setGetIdCheck] = useState();
   const [getNickCheck, setGetNickCheck] = useState();
 
- 
-  
   // 아이디
   const onChangeUserId = (event) => {
     const userIdRegex = /^[A-Za-z0-9+]{4,12}$/;
@@ -38,18 +37,19 @@ export default function SignUp() {
     setUserId(event.target.value);
   };
   console.log();
-  
+
   // 닉네임
   const onChangeNickName = (event) => {
-    const nicknameRegex = /^[a-zA-Z0-9가-힣ㄱ-ㅎ~!@#$%^&*()_+|<>?:{}`';,./-=]{2,8}$/;
+    const nicknameRegex =
+      /^[a-zA-Z0-9가-힣ㄱ-ㅎ~!@#$%^&*()_+|<>?:{}`';,./-=]{2,8}$/;
     if (!event.target.value || nicknameRegex.test(event.target.value)) {
       setNickNameError(false);
-    } else{
+    } else {
       setNickNameError(true);
     }
-      setNickName(event.target.value)
-  }
-  
+    setNickName(event.target.value);
+  };
+
   // 지역
   const onChangeLoCation = (event) => {
     const locationRegex = /[가-힣]{5,}/;
@@ -58,15 +58,15 @@ export default function SignUp() {
     } else {
       setLoCationError(true);
     }
-    setLoCation(event.target.value)
-}
-  
+    setLoCation(event.target.value);
+  };
+
   // 비밀번호
   const onChangePassWord = (event) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,12}$/;   
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{4,12}$/;
     if (!event.target.value || passwordRegex.test(event.target.value)) {
       setPassWordError(false);
-      
     } else {
       setPassWordError(true);
     }
@@ -75,25 +75,24 @@ export default function SignUp() {
     } else {
       setConFirmPwdError(true);
     }
-    setPassWord(event.target.value)
-  }
-  
+    setPassWord(event.target.value);
+  };
+
   // 비밀번호 확인
   const onChangeConFirmPwd = (event) => {
     if (password === event.target.value) {
       setConFirmPwdError(false);
     } else {
       setConFirmPwdError(true);
-    }  
-    setConFirmPwd(event.target.value)
-  }
+    }
+    setConFirmPwd(event.target.value);
+  };
   const validation = () => {
-    if (!userId) setUserIdError(true);  // 유저아이디가 빈문자열이면 유저아이디에러를 트루로 바꿈
+    if (!userId) setUserIdError(true); // 유저아이디가 빈문자열이면 유저아이디에러를 트루로 바꿈
     if (!password) setPassWordError(true);
     if (!confirmpwd) setConFirmPwdError(true);
     if (!nickname) setNickNameError(true);
     if (location) setLoCationError(true);
-    console.log("validation", userIdError, nicknameError, locationError, passwordError, confirmpwdError);
     if (
       userId &&
       password &&
@@ -104,38 +103,34 @@ export default function SignUp() {
       !passwordError &&
       !confirmpwdError &&
       !nicknameError 
-      
     ) {
       return true;
     } else {
       return false;
     }
-    
   };
   // 회원가입 버튼
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-          const data = await axios.post("http://3.35.22.118/user/signup", {
+        const data = await axios.post("http://3.35.22.118/user/signup", {
           username: userId,
           nickname,
           location,
           password,
         });
         console.log(data);
-      alert(data.data.data);  // 데이터 안에 데이터 안에 데이터 값
-      setUserId("");
-      setPassWord("");
-      setConFirmPwd("");
-      setNickName("");
-      setLoCation("");
-      navigate("/signin");
-      return;
-        
+        alert(data.data.data); // 데이터 안에 데이터 안에 데이터 값
+        setUserId("");
+        setPassWord("");
+        setConFirmPwd("");
+        setNickName("");
+        setLoCation("");
+        navigate("/signin");
+        return;
       } catch (error) {
         throw new Error(error);
       }
-      
     } else {
       alert("입력 정보를 다시 확인하세요!!");
     }
@@ -161,6 +156,7 @@ export default function SignUp() {
   // 닉네임 중복확인 버튼
   const onNickCheck = async () => {
     try {
+
         const data = await axios.get(`http://3.35.22.118/user/signup/nickcheck/${nickname}`);
         setGetNickCheck(data);
     if (data.data.data === '사용 가능한 닉네임입니다') {
@@ -171,7 +167,7 @@ export default function SignUp() {
     } catch (error) {
       throw new Error(error);
     }
-};
+  };
 
 useEffect(() => {
   onNickCheck();
@@ -415,7 +411,6 @@ const StLine = styled.div`
   color: rgb(102, 102, 102);
   line-height: 17px;
   text-align: right;
-  
 `;
 
 const StHeader1 = styled.label`
@@ -451,20 +446,17 @@ const StIdForm = styled.div`
   display: inline-flex;
   // width: 100%;
   // padding: 10px 20px;
-  
 `;
 
 const StIdBox = styled.div`
   width: 100px;
   padding-top: 12px;
-  
 `;
 
 const StIdLabel = styled.label`
   font-weight: 550;
   color: #ff7e36;
   line-height: 20px;
-  
 `;
 
 const StInputForm = styled.div`
@@ -477,20 +469,19 @@ const StIdNickInput = styled.input`
   // flex: 1 1 0%;
   // padding-bottom: 0px;
   // position: relative;
-    height: 48px;
-    width: 80%;
-    height: 46px;
-    padding: 0px 11px 1px 15px;
-    border-radius: 4px;
-    border: 1px solid rgb(221, 221, 221);
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgb(51, 51, 51);
-    // outline: none;
-    box-sizing: border-box;
-    bottom: 20px;
-    
+  height: 48px;
+  width: 80%;
+  height: 46px;
+  padding: 0px 11px 1px 15px;
+  border-radius: 4px;
+  border: 1px solid rgb(221, 221, 221);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgb(51, 51, 51);
+  // outline: none;
+  box-sizing: border-box;
+  bottom: 20px;
 `;
 
 const StLoPwCfInput = styled.input`
@@ -561,11 +552,13 @@ const ErrorMessage = styled.div`
   font-weight: 530;
 `;
 
+
 const LoPwCfErrorMessage = styled.div`
   color: red;
   font-size: 14px;
   font-weight: 530;
   margin-right: 25%;
 `;
+
 
 

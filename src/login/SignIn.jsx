@@ -1,15 +1,17 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-import { setAccessToken } from '../storage/Cookie';
+import { setAccessToken, setLocation, setNickname } from '../storage/Cookie';
 import danggeunlogo from '../image/danggeunlogo.png';
+
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const { username, password } = loginInfo;
@@ -33,10 +35,13 @@ export default function SignIn() {
         },
         withCredentials: true,
       });
-      console.log(res);
+      console.log(res.data.data.nickname);
+      setLocation(res.data.data.location);
+      setNickname(res.data.data.nickname);
       setAccessToken(res.headers.access_token);
+
       axios.defaults.headers.common[
-        'Authorization'
+        "Authorization"
       ] = `${res.headers.authorization}`;
       alert("당근마켓에 오신걸 환영합니다!!");
       return navigate('/');

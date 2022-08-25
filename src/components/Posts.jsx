@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import heart from '../image/heart.svg';
 
 export default function Posts({ product }) {
+  if (product.imgProductList.length === 0) {
+    product.imgProductList = [{ imgUrl: 'default이미지' }];
+  }
+
   return (
     <PostsBox>
       <Link to={`/detail/${product.id}`}>
@@ -17,7 +21,7 @@ export default function Posts({ product }) {
           <PostsDescPrice>{product.price} 원</PostsDescPrice>
           <PostsDescLocal>{product.location}</PostsDescLocal>
           <PostsDescLike src={heart} alt="heart" />
-          <PostsDescLikeText>관심 10</PostsDescLikeText>
+          <PostsDescLikeText>관심 </PostsDescLikeText>
         </PostsDescInfoSection>
       </Link>
     </PostsBox>
