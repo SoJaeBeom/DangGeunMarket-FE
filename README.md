@@ -97,7 +97,7 @@
 #### 8.Chatting
 <img src="https://user-images.githubusercontent.com/98306332/186675822-309ab8f2-52e3-481d-a2e0-48eb4d5514a5.png" width="600"/><br>
 
-- 1:1 채팅 페이지 입니다. <br>
+- 1:1 채팅 페이지 입니다. (70% 구현) <br>
 
 
 
