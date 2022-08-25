@@ -1,38 +1,38 @@
-import React from 'react';
-import styled from 'styled-components';
-import Chatlogo from '../image/Chatlogo.png';
-import { useNavigate } from 'react-router-dom';
-import photo from '../image/photo.svg';
-import bulletinBanner from '../image/bulletinBanner.png';
-import search from '../image/search.png';
-import chat from '../image/chat.png';
-import footeriamge from '../image/footerimage.svg';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import Chatlogo from "../image/Chatlogo.png";
+import { useNavigate } from "react-router-dom";
+import photo from "../image/photo.svg";
+import bulletinBanner from "../image/bulletinBanner.png";
+import search from "../image/search.png";
+import chat from "../image/chat.png";
+import footeriamge from "../image/footerimage.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { __getList } from "../redux/modules/chatSlice";
 
 export default function ChatList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.chatSlice);
 
-  // const displayedAt = (paramTime) => {
-  //   const parseTime = Date.parse(paramTime);
-  //   const date = new Date(parseTime);
-  //   const returnDate =
-  //     date.getFullYear() +
-  //     '/' +
-  //     (date.getMonth() + 1) +
-  //     '/' +
-  //     date.getDate() +
-  //     ' ' +
-  //     date.getHours() +
-  //     ':' +
-  //     date.getMinutes();
-  //   return returnDate;
-  // };
+  useEffect(() => {
+    dispatch(__getList());
+  }, [dispatch]);
+
+  const lists = state.list?.map((v, i) => {
+    console.log(v.roomId, i);
+    return v.roomId;
+  });
+  const moveToRoom = () => {
+    console.log("ajjo");
+  };
 
   return (
     <ChatContainer>
       <ChatBox>
         <Chatimage
           onClick={() => {
-            navigate('/');
+            navigate("/");
           }}
         />
         <ChatTextBox>
@@ -43,16 +43,9 @@ export default function ChatList() {
 
         <ChatRoom>
           <ProfileBox />
-          <RoomNumber>15</RoomNumber>
+          <RoomNumber onClick={moveToRoom}>{lists}</RoomNumber>
         </ChatRoom>
-        <ChatRoom>
-          <ProfileBox />
-          <RoomNumber>16</RoomNumber>
-        </ChatRoom>
-        <ChatRoom>
-          <ProfileBox />
-          <RoomNumber>17</RoomNumber>
-        </ChatRoom>
+
         <Footer>
           <Link>
             <a
@@ -98,7 +91,7 @@ const ChatTextBox = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  font-family: 'a15';
+  font-family: "a15";
   font-size: 15px;
 
   margin: auto;
@@ -109,7 +102,7 @@ const ChatTitle = styled.div`
   width: 200px;
   height: 30px;
 
-  font-family: 'a19';
+  font-family: "a19";
   font-size: 22px;
   color: #f7902b;
 `;
@@ -161,11 +154,11 @@ const ProfileBox = styled.div`
 const RoomNumber = styled.div`
   width: 200px;
   height: 30px;
-  margin-top: 45px;
+  margin-top: 25px;
   margin-left: 20px;
 
-  font-family: 'a15';
-  font-size: 28px;
+  font-family: "a15";
+  font-size: 20px;
   color: white;
 `;
 
@@ -187,7 +180,7 @@ const Link = styled.div`
   margin-left: 40px;
   cursor: pointer;
 
-  font-family: 'a19';
+  font-family: "a19";
   font-size: 18px;
   color: #0c7eab;
 `;

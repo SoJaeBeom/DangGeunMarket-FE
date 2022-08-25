@@ -1,22 +1,21 @@
-import { Stomp } from '@stomp/stompjs';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import SockJS from 'sockjs-client';
-import { getCookieToken, getNickname } from '../storage/Cookie';
-import xicon from '../image/xicon.png';
-import back from '../image/back.svg';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import addbutton from '../image/addbutton.png';
+import { Stomp } from "@stomp/stompjs";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import SockJS from "sockjs-client";
+import { getCookieToken, getNickname } from "../storage/Cookie";
+import xicon from "../image/xicon.png";
+import back from "../image/back.svg";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function Chat() {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const { detailProduct } = useSelector((state) => state.detailProduct);
   const roomId = useSelector((state) => state.chatSlice);
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
-  console.log('data is :: ', detailProduct, roomId);
+  console.log("data is :: ", detailProduct, roomId);
 
   const config = {
     Authorization: getCookieToken(),
@@ -28,7 +27,7 @@ export default function Chat() {
     },
   };
 
-  const socket = new SockJS('http://3.35.22.118/ws');
+  const socket = new SockJS("http://3.35.22.118/ws");
   const stompClient = Stomp.over(socket);
 
   // console.log("socket is ::", socket);
@@ -62,7 +61,7 @@ export default function Chat() {
           );
         },
         () => {
-          console.log('failed');
+          console.log("failed");
         }
       );
     } catch (error) {
@@ -105,30 +104,28 @@ export default function Chat() {
 
   const sendMessage = () => {
     const data = {
-      roomId: roomId,
+      roomId: roomId.list[0].roomId,
       nickname,
       message,
     };
     //예시 - 데이터 보낼때 json형식을 맞추어 보낸다.
-    stompClient.send('/pub/chat/message', config, JSON.stringify(data));
+    stompClient.send("/pub/chat/message", config, JSON.stringify(data));
+    getMessage();
   };
 
   const onChangeHandler = (event) => {
     setMessage(event.target.value);
   };
 
-  const getList = async () => {
-    const data = await axios.get(
-      `http://3.35.22.118/chat/chatRoom/${nickname}`,
-      configHttp
-    );
-    console.log('list is ::: ', data);
-  };
-
   // const listReal = messageList.map((v, i) => {
   //   console.log(v.message);
   //   return <div>{v.message}</div>;
   // });
+
+  const lis = messageList.map((value, index) => {
+    console.log("aaaaaa", value.message);
+    return value.message;
+  });
 
   return (
     <Container>
@@ -145,16 +142,17 @@ export default function Chat() {
           <AddButton onClick={sendMessage}>전송</AddButton>
         </InputBox>
         <TextBox>
-          {messageList.map((value, index) => {
-            <>
-              <div>{value.message}</div>;
-            </>;
-          })}
+          <MsgDiv>{lis + "\n"}</MsgDiv>
         </TextBox>
       </Box>
     </Container>
   );
 }
+
+const MsgDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Container = styled.div`
   background: #f39d66;
@@ -225,7 +223,7 @@ const ChatInput = styled.textarea`
   resize: none;
   overflow: hidden;
 
-  font-family: 'a11';
+  font-family: "a11";
   font-weight: 600;
   font-size: 20px;
 `;
@@ -238,7 +236,7 @@ const AddButton = styled.div`
   padding-top: 25px;
   box-sizing: border-box;
 
-  font-family: 'DX국민';
+  font-family: "DX국민";
   font-weight: 800;
   font-size: 25px;
   cursor: pointer;

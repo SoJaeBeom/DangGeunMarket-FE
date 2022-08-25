@@ -83,14 +83,6 @@ export default function DetailContent({ detailProduct }) {
             console.log(data.data.data.roomId);
             dispatch(getChatRoomId({ roomId: data.data.data.roomId }));
           }
-          // else if (res.data.success === true) {
-          //   console.log("success !!!");
-          //   const data = await axios.get(
-          //     `http://3.35.22.118/chat/chatMessage/${nickname}/${detailProduct.id}`,
-          //     config
-          //   );
-          //   console.log(data);
-          // }
         });
       navigate("/chat");
     } catch (error) {
