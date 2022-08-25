@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import danggeunlogo from "../image/danggeunlogo.png";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { username } = useParams();
+
 
   // 아이디, 닉네임, 지역, 비밀번호, 비밀번호 확인
   const [userId, setUserId] = useState("");
@@ -23,8 +23,7 @@ export default function SignUp() {
   const [confirmpwdError, setConFirmPwdError] = useState(false);
 
 
-  const [getIdCheck, setGetIdCheck] = useState();
-  const [getNickCheck, setGetNickCheck] = useState();
+
 
   // 아이디
   const onChangeUserId = (event) => {
@@ -113,7 +112,7 @@ export default function SignUp() {
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        const data = await axios.post("http://3.35.22.118/user/signup", {
+        const data = await axios.post("http://75.101.245.105/user/signup", {
           username: userId,
           nickname,
           location,
@@ -138,10 +137,11 @@ export default function SignUp() {
   // 아이디 중복확인 버튼
   const onIdCheck = async () => {
       try {
-          const data = await axios.get(`http://3.35.22.118/user/signup/usercheck/${userId}`);
-          setGetIdCheck(data);
-      if (data === "사용 가능한 아이디입니다") {
-         alert({data});
+        const data = await axios.post("http://3.35.22.118/user/signup/usercheck", {
+          username: userId,
+        })
+      if (data.data.data === "사용 가능한 아이디입니다") {
+         alert(data.data.data);
          return;
       }
       alert("이미 사용중인 아이디입니다.");
@@ -149,16 +149,14 @@ export default function SignUp() {
         throw new Error(error);
       }
   };
-  useEffect(() => {
-    onIdCheck();
-  },[]);
+
   
   // 닉네임 중복확인 버튼
   const onNickCheck = async () => {
     try {
-
-        const data = await axios.get(`http://3.35.22.118/user/signup/nickcheck/${nickname}`);
-        setGetNickCheck(data);
+        const data = await axios.post("http://3.35.22.118/user/signup/nickcheck", {
+        nickname,
+      })
     if (data.data.data === '사용 가능한 닉네임입니다') {
        alert(data.data.data);
        return;
@@ -167,11 +165,9 @@ export default function SignUp() {
     } catch (error) {
       throw new Error(error);
     }
-  };
+};
 
-useEffect(() => {
-  onNickCheck();
-},[]);
+
 
   return(
    <StLayout> 
@@ -559,6 +555,3 @@ const LoPwCfErrorMessage = styled.div`
   font-weight: 530;
   margin-right: 25%;
 `;
-
-
-

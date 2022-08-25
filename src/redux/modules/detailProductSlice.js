@@ -94,6 +94,7 @@ export const __editDetailProduct = createAsyncThunk(
       );
       console.log(data);
       window.alert('수정되었습니다.');
+      document.location.href = '/posts';
       return thunkAPI.fulfillWithValue(data.payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
