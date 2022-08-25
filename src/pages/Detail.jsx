@@ -83,7 +83,6 @@ export default function Detail() {
       <DetailBox>
         <DetailImage detailProduct={detailProduct} />
         <DetailContent detailProduct={detailProduct} />
-        <button onClick={checkRoom}>채팅하기</button>
       </DetailBox>
     );
   }
