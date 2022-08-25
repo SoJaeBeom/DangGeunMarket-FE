@@ -64,8 +64,8 @@
 #### 3⃣Main
 
 <img src="https://user-images.githubusercontent.com/98306332/186670444-b04d97c1-f967-409b-99d5-d1a7aa3f2e6a.png" width="600"/><br>
--메인페이지입니다. 당근마켓에 이미지를 가지고 와서 <br>
--레이아웃을 나누고 구현해 했습니다. <br><br>
+-메인페이지입니다. <br>
+-당근마켓에 이미지를 가지고 와서 레이아웃을 나누고 구현 했습니다. <br><br>
 
 
 #### 4⃣List
@@ -83,16 +83,16 @@
 
 #### 6⃣Detail
 
-<img src="https://user-images.githubusercontent.com/98306332/186671592-48754643-de04-4682-941a-8e5fcadb7fc8.png" width="600"/><br>
-- 제품등록 페이지입니다.<br>
-- 사진을 프리뷰, 삭제기능을 추가했습니다. (최대 5장 추가 가능)<br>
+<img src="https://user-images.githubusercontent.com/98306332/186674142-93e6c1f9-fe5e-4592-87a8-0b09dcf139d0.png" width="600"/><br>
+- 제품 상세 페이지입니다.<br>
+- 제품 사진을 자동 슬라이드로 보여주고 유저, 내용을 보여주는 페이지 입니다.<br>
 
 
 #### 7⃣Put
 
 <img src="https://user-images.githubusercontent.com/98306332/186671806-3b3c98b6-fea3-4f7f-a5a6-97d24070a072.png" width="600"/><br>
 
-- 좋아요를 누른 제품페이지를 확인할 수 있습니다. <br>
+- 수정할때, 수정한 내용을 백업 시켜 <br>
 
 #### 6.MyPage
 <img src="https://github.com/hh99MiniProject/miniProject/blob/master/likepage.png?raw=true" width="600"/><br>
