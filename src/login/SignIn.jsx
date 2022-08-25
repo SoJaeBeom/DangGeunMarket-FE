@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import axios from 'axios';
-import { setAccessToken } from '../storage/Cookie';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import axios from "axios";
+import { setAccessToken, setLocation, setNickname } from "../storage/Cookie";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const { username, password } = loginInfo;
@@ -24,20 +24,23 @@ export default function SignIn() {
   const login = async () => {
     try {
       let res = await axios({
-        method: 'POST',
-        url: 'http://54.180.2.97/user/login',
+        method: "POST",
+        url: "http://3.35.22.118/user/login",
         data: {
           username,
           password,
         },
         withCredentials: true,
       });
-      console.log(res);
+      console.log(res.data.data.nickname);
+      setLocation(res.data.data.location);
+      setNickname(res.data.data.nickname);
       setAccessToken(res.headers.access_token);
+
       axios.defaults.headers.common[
-        'Authorization'
+        "Authorization"
       ] = `${res.headers.authorization}`;
-      return navigate('/');
+      return navigate("/");
     } catch (err) {
       throw new Error(err);
     }
