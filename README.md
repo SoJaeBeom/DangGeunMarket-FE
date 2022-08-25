@@ -1,6 +1,6 @@
 # 🥕당근마켓 클론코딩 (Carrot Market in the Clones)
 
-![rm.png](https://user-images.githubusercontent.com/98306332/185592131-a216f5ea-dbd2-4c5a-bd65-8fe6351ea497.png)
+![rm.png](https://user-images.githubusercontent.com/98306332/186670019-3f3cfe11-da7a-4d92-8061-0f4412bd37d5.png)
 
 
 
@@ -51,9 +51,9 @@
 
 #### 1⃣Sign up
 
-<!-- <img src="https://github.com/hh99MiniProject/miniProject/blob/master/signup.png?raw=true" width="600"/><br>
+ <img src="https://github.com/hh99MiniProject/miniProject/blob/master/signup.png?raw=true" width="600"/><br>
 -회원가입 페이지입니다.<br>
--아이디와 닉네임을 체크 편의기능을 추가하였습니다.<br><br> -->
+-아이디와 닉네임을 체크 편의기능을 추가하였습니다.<br><br> 
 
 #### 2⃣Log in
 
@@ -63,9 +63,9 @@
 
 #### 3⃣Main
 
-<!-- <img src="https://github.com/hh99MiniProject/miniProject/blob/master/main.png?raw=true" width="600"/><br>
+<img src="https://github.com/hh99MiniProject/miniProject/blob/master/main.png?raw=true" width="600"/><br>
 -메인페이지입니다. 등록된 제품의 사진이 카드 목록으로 노출됩니다.<br>
--로그인 이용자에게는 '제품등록', '로그아웃' 버튼이 비로그인 이용자에게는 '로그인', '회원가입'버튼이 보입니다.<br><br> -->
+-로그인 이용자에게는 '제품등록', '로그아웃' 버튼이 비로그인 이용자에게는 '로그인', '회원가입'버튼이 보입니다.<br><br>
 
 
 #### 4⃣List
