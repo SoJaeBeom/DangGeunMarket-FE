@@ -5,6 +5,7 @@ import Changwon from './ChangwonDangamAsac-Bold.ttf';
 import a15 from './a고딕15.ttf';
 import a19 from './a고딕19.ttf';
 import a11 from './a고딕11.ttf';
+import DX국민 from './DX국민.ttf';
 
 export default createGlobalStyle`		      
   @font-face {
@@ -49,8 +50,8 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'a11';
-    src: local('a11'),
-    url(${a11}) format('woff');
+    font-family: 'DX국민';
+    src: local('DX국민'),
+    url(${DX국민}) format('woff');
   }
 `;
