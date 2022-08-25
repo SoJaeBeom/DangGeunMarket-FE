@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import HeaderLogo from "./HeaderLogo";
 import { useNavigate } from "react-router-dom";
-import { getCookieToken, removeCookieToken } from "../storage/Cookie";
+import {
+  getCookieToken,
+  removeCookieToken,
+  removeLocation,
+  removeNickname,
+} from "../storage/Cookie";
 
 export default function Header() {
   const cookie = getCookieToken();
   const logout = () => {
     removeCookieToken();
+    removeNickname();
+    removeLocation();
     window.location.href = "/";
   };
   const navigate = useNavigate();
@@ -47,6 +54,13 @@ export default function Header() {
             >
               중고거래
             </Transaction>
+            <Life
+              onClick={() => {
+                alert("준비중 입니다.");
+              }}
+            >
+              동네 생활
+            </Life>
             <ProductAdd
               onClick={() => {
                 navigate("/add");
@@ -70,11 +84,18 @@ export default function Header() {
           <TextBox>
             <Transaction
               onClick={() => {
-                cookie !== undefined ? navigate("/posts") : navigate("/signin");
+                navigate("/posts");
               }}
             >
               중고거래
             </Transaction>
+            <Life
+              onClick={() => {
+                alert("준비중 입니다.");
+              }}
+            >
+              동네 생활
+            </Life>
             <ProductAdd
               onClick={() => {
                 cookie !== undefined ? navigate("/add") : navigate("/signin");
@@ -129,6 +150,7 @@ const Transaction = styled.span`
   font-family: "a15";
   font-size: 18px;
   font-weight: 700;
+  margin-left: 15px;
   margin-right: 20px;
   color: #f7902b;
   cursor: pointer;
@@ -142,7 +164,19 @@ const ProductAdd = styled.span`
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
+  color: #f7902b;
+  cursor: pointer;
+  &:hover {
+    color: #e57a1a;
+  }
+`;
 
+const Life = styled.span`
+  font-family: "a15";
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 20px;
   color: #f7902b;
   cursor: pointer;
   &:hover {
