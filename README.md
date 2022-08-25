@@ -63,7 +63,7 @@
 
 #### 3⃣Main
 
-<img src="https://github.com/hh99MiniProject/miniProject/blob/master/main.png?raw=true" width="600"/><br>
+<img src="https://user-images.githubusercontent.com/98306332/186670444-b04d97c1-f967-409b-99d5-d1a7aa3f2e6a.png" width="600"/><br>
 -메인페이지입니다. 등록된 제품의 사진이 카드 목록으로 노출됩니다.<br>
 -로그인 이용자에게는 '제품등록', '로그아웃' 버튼이 비로그인 이용자에게는 '로그인', '회원가입'버튼이 보입니다.<br><br>
 
